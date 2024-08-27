@@ -1,8 +1,12 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { getAssetPrice , calculateAmountOut , getPendingOrders} from './minswap.js';
 import { Asset } from '@minswap/sdk';
 const app = express();
 const port = 3000;
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());
