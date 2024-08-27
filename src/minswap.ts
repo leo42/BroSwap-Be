@@ -52,22 +52,74 @@ export function test()  {
 
 
   console.log('test minswap function');
-   
-
 }
 
-export async function getAssetPrice(asset: Asset): Promise<bigint> {
-  console.log('getAssetPrice', asset);
-  const pool = await api.getV2PoolByPair(ADA , asset);
+export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn: bigint): Promise<bigint> {
+  const pool = await api.getV2PoolByPair(assetA, assetB);
   if (!pool) {
     throw new Error("Pool not found");
   }
   return DexV2Calculation.calculateAmountOut({
     reserveIn: pool.reserveA,
     reserveOut: pool.reserveB,
-    amountIn: 1_000_000n,
+    amountIn: amountIn,
     tradingFeeNumerator: pool.feeA[0],
   });
+}
+
+export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut: bigint): Promise<bigint> {
+  const pool = await api.getV2PoolByPair(assetA, assetB);
+  if (!pool) {
+    throw new Error("Pool not found");
+  }
+  return DexV2Calculation.calculateAmountIn({
+    reserveIn: pool.reserveA,
+    reserveOut: pool.reserveB,
+    amountOut: amountOut,
+    tradingFeeNumerator: pool.feeA[0],
+  });
+}
+
+export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigint, utxos: UTxO[], lucid: Lucid, address: Address, slippage: BigNumber ): Promise<TxComplete> {
+  const pool = await api.getV2PoolByPair(assetA, assetB);
+  if (!pool) {
+    throw new Error("Pool not found");
+  }
+  
+  const amountOut = await calculateAmountOut(assetA, assetB, amountIn);
+  const minimumAmountOut = Slippage.apply({ slippage, amount: amountOut, type: "down" });
+
+  return new DexV2(lucid, api).createBulkOrdersTx({
+    sender: address,
+    availableUtxos: utxos,
+    orderOptions: [{
+      type: OrderV2.StepType.SWAP_EXACT_IN,
+      amountIn: amountIn,
+      assetIn: assetA,
+      direction: assetA.policyId === "" ? OrderV2.Direction.A_TO_B : OrderV2.Direction.B_TO_A,
+      minimumAmountOut: minimumAmountOut,
+      lpAsset: pool.lpAsset,
+      isLimitOrder: false,
+      killOnFailed: false,
+    }],
+  });
+}
+
+
+
+export async function getAssetPrice(asset: Asset): Promise<Number> {
+  console.log('getAssetPrice', asset);
+  const pool = await api.getV2PoolByPair(ADA, asset);
+  if (!pool) {
+    throw new Error("Pool not found");
+  }
+  
+  return 1/Number(DexV2Calculation.calculateAmountOut({
+    reserveIn: pool.reserveA,
+    reserveOut: pool.reserveB,
+    amountIn: 1_000_000n,
+    tradingFeeNumerator: pool.feeA[0],
+  }));
 }
 
 
