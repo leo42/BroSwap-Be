@@ -59,9 +59,18 @@ export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn:
   if (!pool) {
     throw new Error("Pool not found");
   }
+  
+  const assetAId = assetA.policyId === "" ? "lovelace": assetA.policyId + assetA.tokenName;
+  const assetBId = assetB.policyId === "" ? "lovelace": assetB.policyId + assetB.tokenName;
+  
+  const reserveIn = assetAId === pool.assetA ? pool.reserveA : pool.reserveB;
+  const reserveOut = assetBId === pool.assetB ? pool.reserveB : pool.reserveA;
+  
+  console.log('calculateAmountOut',assetAId, assetBId, pool.reserveA, pool.reserveB , reserveIn , reserveOut, amountIn, pool.feeA[0], pool.assetA, pool.assetB);
+
   return DexV2Calculation.calculateAmountOut({
-    reserveIn: pool.reserveA,
-    reserveOut: pool.reserveB,
+    reserveIn: reserveIn,
+    reserveOut: reserveOut,
     amountIn: amountIn,
     tradingFeeNumerator: pool.feeA[0],
   });

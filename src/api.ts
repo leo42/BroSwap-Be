@@ -43,7 +43,6 @@ app.get('/api/calculateOut', (req: Request, res: Response) => {
 
     const { amountIn, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
 
-    console.log('Debug:', { amountIn, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName });
     // Replace missing policyId and tokenName with empty strings
     const safeAssetAPolicyId = assetAPolicyId || "";
     const safeAssetATokenName = assetATokenName || "";
@@ -54,16 +53,7 @@ app.get('/api/calculateOut', (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Invalid query parameters' });
     }
 
-    // Log the types of the parameters
-    console.log('Parameter types:', {
-        amountIn: typeof amountIn,
-        assetAPolicyId: typeof assetAPolicyId,
-        assetATokenName: typeof assetATokenName,
-        assetBPolicyId: typeof assetBPolicyId,
-        assetBTokenName: typeof assetBTokenName
-    });
-
-    
+  
     if (typeof amountIn !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
         return res.status(400).json({ error: 'Invalid query parameters' });
       }
