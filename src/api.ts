@@ -1,12 +1,8 @@
 import express, { Request, Response } from 'express';
-import cors from 'cors';
-import { getAssetPrice , calculateAmountOut, calculateAmountIn , createSwapTx } from './minswap.js';
+import { getAssetPrice , calculateAmountOut , getPendingOrders} from './minswap.js';
 import { Asset } from '@minswap/sdk';
 const app = express();
 const port = 3000;
-
-// Add CORS middleware
-app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -20,7 +16,6 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/api', (req: Request, res: Response) => {
   res.json({ message: 'Welcome to the API!' });
 });
-
 
 app.get('/api/asset-price', (req: Request, res: Response) => {
     const { policyId, tokenName } = req.query;
@@ -37,10 +32,37 @@ app.get('/api/asset-price', (req: Request, res: Response) => {
     });
 });
 
+app.get('/api/calculateIn', (req: Request, res: Response) => {
+    const { amountOut, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
+
+// Replace missing policyId and tokenName with empty strings
+const safeAssetAPolicyId = assetAPolicyId || "";
+const safeAssetATokenName = assetATokenName || "";
+const safeAssetBPolicyId = assetBPolicyId || "";
+const safeAssetBTokenName = assetBTokenName || "";
+
+if(typeof amountOut !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
+    return res.status(400).json({ error: 'Invalid query parameters' });
+}
+
+
+if (typeof amountOut !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
+    return res.status(400).json({ error: 'Invalid query parameters' });
+  }
+
+const assetA: Asset = { policyId: safeAssetAPolicyId, tokenName: safeAssetATokenName };
+const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBTokenName };
+
+    if (typeof amountOut !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
+        return res.status(400).json({ error: 'Invalid query parameters' });
+    }
+    
+    
+    
+}); 
+
 app.get('/api/calculateOut', (req: Request, res: Response) => {
     
-
-
     const { amountIn, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
 
     // Replace missing policyId and tokenName with empty strings
@@ -88,6 +110,19 @@ app.get('/api/swap', (req: Request, res: Response) => {
       const assetB = { policyId: "", tokenName: "LOVELACE" };
       
     
+});
+
+
+// Add a new API endpoint to use this function
+app.get('/api/pending-orders/:address', async (req: Request, res: Response) => {
+  const { address } = req.params;
+
+  try {
+    const pendingOrders = await getPendingOrders(address);
+    res.json({ pendingOrders });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching pending orders' });
+  }
 });
 
 // Start the server

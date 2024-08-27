@@ -1,6 +1,6 @@
 import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
-import { BlockfrostAdapter, DexV2Calculation, DexV2, OrderV2, Asset} from "@minswap/sdk";
-import { Lucid, Address, UTxO, TxComplete } from "lucid-cardano";
+import { BlockfrostAdapter, DexV2Calculation, DexV2, OrderV2, Asset, NetworkId } from "@minswap/sdk";
+import { Lucid, Address, UTxO, TxComplete , Data} from "lucid-cardano";
 import BigNumber from "bignumber.js";
 
 // load the config.json file    
@@ -34,6 +34,39 @@ namespace Slippage {
           }
       }
   }
+}
+
+// Add this new function
+export async function getPendingOrders(userAddress: string): Promise<OrderV2.Datum[]> {
+  const lucid = await Lucid.new(undefined, 'Mainnet');
+  const adapter = new BlockfrostAdapter({ 
+    networkId: NetworkId.MAINNET, 
+    blockFrost: new BlockFrostAPI({ 
+      projectId:  config.blockfrost.projectId
+    })
+  });
+
+  const dexV2 = new DexV2(lucid, adapter);
+  const orderScriptAddress = await dexV2['buildOrderAddress']();
+
+  const utxos = await lucid.utxosAt(orderScriptAddress);
+  const pendingOrders: OrderV2.Datum[] = [];
+
+  for (const utxo of utxos) {
+    if (utxo.datum) {
+      try {
+        const datumCbor = await adapter.getDatumByDatumHash(utxo.datum);
+        const datum = OrderV2.Datum.fromPlutusData(NetworkId.MAINNET, Data.from(datumCbor));
+        if (datum.refundReceiver === userAddress) {
+          pendingOrders.push(datum);
+        }
+      } catch (error) {
+        console.error('Error processing UTxO:', error);
+      }
+    }
+  }
+
+  return pendingOrders;
 }
 
 
@@ -81,9 +114,16 @@ export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut:
   if (!pool) {
     throw new Error("Pool not found");
   }
+
+  const assetAId = assetA.policyId === "" ? "lovelace": assetA.policyId + assetA.tokenName;
+  const assetBId = assetB.policyId === "" ? "lovelace": assetB.policyId + assetB.tokenName;
+
+  const reserveIn = assetAId === pool.assetA ? pool.reserveA : pool.reserveB;
+  const reserveOut = assetBId === pool.assetB ? pool.reserveB : pool.reserveA;
+
   return DexV2Calculation.calculateAmountIn({
-    reserveIn: pool.reserveA,
-    reserveOut: pool.reserveB,
+    reserveIn: reserveIn,
+    reserveOut: reserveOut,
     amountOut: amountOut,
     tradingFeeNumerator: pool.feeA[0],
   });
