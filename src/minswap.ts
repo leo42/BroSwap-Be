@@ -1,6 +1,6 @@
 import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
-import { BlockfrostAdapter, DexV2Calculation, DexV2, OrderV2, Asset, NetworkId } from "@minswap/sdk";
-import { Lucid, Address, UTxO, TxComplete , Data} from "lucid-cardano";
+import { BlockfrostAdapter, DexV2Calculation, DexV2, OrderV2, Asset, NetworkId, PoolV2 } from "@minswap/sdk";
+import { Lucid, Address, UTxO, TxComplete, Data , Blockfrost, Tx} from "lucid-cardano";
 import BigNumber from "bignumber.js";
 
 // load the config.json file    
@@ -72,10 +72,10 @@ export async function getPendingOrders(userAddress: string): Promise<OrderV2.Dat
 
 const api = new BlockfrostAdapter(
     {
-    networkId : 1,
+    networkId : 0,
     blockFrost: new BlockFrostAPI({
       projectId: config.blockfrost.projectId,
-      network: 'mainnet',
+      network: 'preprod',
     }),
   });
 
@@ -87,19 +87,56 @@ export function test()  {
   console.log('test minswap function');
 }
 
+// Add these new variables
+let allPools: PoolV2.State[] = [];
+let lastFetchTime = 0;
+const FETCH_INTERVAL = 60000; // 1 minute in milliseconds
+
+// Add this new function to fetch all pools
+async function fetchAllPools() {
+  const currentTime = Date.now();
+  if (currentTime - lastFetchTime < FETCH_INTERVAL) {
+    return; // Don't fetch if it's been less than a minute since the last fetch
+  }
+
+  try {
+    const { pools, errors } = await api.getAllV2Pools();
+    if (errors.length > 0) {
+      console.error('Errors while fetching pools:', errors);
+    }
+    allPools = pools;
+    lastFetchTime = currentTime;
+    console.log(`Fetched ${pools.length} pools at ${new Date().toISOString()}`);
+  } catch (error) {
+    console.error('Error fetching all pools:', error);
+  }
+}
+
+// Modify the getV2PoolByPair function to use the cached pools
+async function getV2PoolByPair(assetA: Asset, assetB: Asset): Promise<PoolV2.State | null> {
+  await fetchAllPools(); // This will only fetch if it's been more than a minute since the last fetch
+
+  const pool = allPools.find(p => 
+    (p.assetA === Asset.toString(assetA) && p.assetB === Asset.toString(assetB)) ||
+    (p.assetA === Asset.toString(assetB) && p.assetB === Asset.toString(assetA))
+  );
+
+  return pool || null;
+}
+
 export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn: bigint): Promise<bigint> {
-  const pool = await api.getV2PoolByPair(assetA, assetB);
+  const pool = await getV2PoolByPair(assetA, assetB);
   if (!pool) {
     throw new Error("Pool not found");
   }
   
   const assetAId = assetA.policyId === "" ? "lovelace": assetA.policyId + assetA.tokenName;
   const assetBId = assetB.policyId === "" ? "lovelace": assetB.policyId + assetB.tokenName;
-  
+  console.log('calculateAmountOut', assetAId, assetBId, pool.reserveA, pool.reserveB);  
   const reserveIn = assetAId === pool.assetA ? pool.reserveA : pool.reserveB;
   const reserveOut = assetBId === pool.assetB ? pool.reserveB : pool.reserveA;
   
-  console.log('calculateAmountOut',assetAId, assetBId, pool.reserveA, pool.reserveB , reserveIn , reserveOut, amountIn, pool.feeA[0], pool.assetA, pool.assetB);
+  console.log('calculateAmountOut', assetAId, assetBId, pool.reserveA, pool.reserveB, reserveIn, reserveOut, amountIn, pool.feeA[0], pool.assetA, pool.assetB);
 
   return DexV2Calculation.calculateAmountOut({
     reserveIn: reserveIn,
@@ -110,7 +147,7 @@ export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn:
 }
 
 export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut: bigint): Promise<bigint> {
-  const pool = await api.getV2PoolByPair(assetA, assetB);
+  const pool = await getV2PoolByPair(assetA, assetB);
   if (!pool) {
     throw new Error("Pool not found");
   }
@@ -129,36 +166,56 @@ export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut:
   });
 }
 
-export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigint, utxos: UTxO[], lucid: Lucid, address: Address, slippage: BigNumber ): Promise<TxComplete> {
-  const pool = await api.getV2PoolByPair(assetA, assetB);
+export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigint, utxos: UTxO[], address: Address, slippage: BigNumber, composeTx: Tx | null = null): Promise<TxComplete> {
+  const pool = await getV2PoolByPair(assetA, assetB);
   if (!pool) {
     throw new Error("Pool not found");
   }
-  
+  const authorizationMethodType = composeTx ? OrderV2.AuthorizationMethodType.SPEND_SCRIPT : OrderV2.AuthorizationMethodType.SIGNATURE;
+  const lucid = await Lucid.new(new Blockfrost("https://cardano-preprod.blockfrost.io/api/v0", config.blockfrost.projectId), 'Preview');
+  lucid.selectWalletFrom({address, utxos});
   const amountOut = await calculateAmountOut(assetA, assetB, amountIn);
   const minimumAmountOut = Slippage.apply({ slippage, amount: amountOut, type: "down" });
-
-  return new DexV2(lucid, api).createBulkOrdersTx({
-    sender: address,
-    availableUtxos: utxos,
-    orderOptions: [{
-      type: OrderV2.StepType.SWAP_EXACT_IN,
-      amountIn: amountIn,
-      assetIn: assetA,
-      direction: assetA.policyId === "" ? OrderV2.Direction.A_TO_B : OrderV2.Direction.B_TO_A,
-      minimumAmountOut: minimumAmountOut,
-      lpAsset: pool.lpAsset,
-      isLimitOrder: false,
-      killOnFailed: false,
-    }],
-  });
+  const typedUtxos = utxos.map(utxo => ({
+    ...utxo,
+    assets: Object.fromEntries(
+      Object.entries(utxo.assets).map(([key, value]) => [key, BigInt(value)])
+    )
+  }));
+  
+  try {
+    const result = await new DexV2(lucid, api).createBulkOrdersTx({
+      sender: address,
+      availableUtxos: typedUtxos,
+      orderOptions: [{
+        type: OrderV2.StepType.SWAP_EXACT_IN,
+        amountIn: BigInt(amountIn),
+        assetIn: assetA,
+        direction: assetA.policyId === "" ? OrderV2.Direction.A_TO_B : OrderV2.Direction.B_TO_A,
+        minimumAmountOut: BigInt(minimumAmountOut),
+        lpAsset: pool.lpAsset,
+        isLimitOrder: false,
+        killOnFailed: true,
+      }],
+      authorizationMethodType: authorizationMethodType,
+      composeTx: composeTx ? composeTx : undefined,
+    });
+    return result;
+  }catch (error) {
+    console.error('Error in createBulkOrdersTx:', error);
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    throw new Error('Error creating swap transaction: ' + (error instanceof Error ? error.message : String(error)));
+  }
 }
 
 
 
 export async function getAssetPrice(asset: Asset): Promise<Number> {
   console.log('getAssetPrice', asset);
-  const pool = await api.getV2PoolByPair(ADA, asset);
+  const pool = await getV2PoolByPair(ADA, asset);
   if (!pool) {
     throw new Error("Pool not found");
   }
@@ -181,7 +238,7 @@ async function _swapExactInV2TxExample(
     const assetA = ADA;
     const assetB = ADA;
   
-    const pool = await blockfrostAdapter.getV2PoolByPair(assetA, assetB);
+    const pool = await getV2PoolByPair(assetA, assetB);
     if (!pool) {
       throw new Error("Pool not found");
     }

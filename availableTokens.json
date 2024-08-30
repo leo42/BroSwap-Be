@@ -1,0 +1,2718 @@
+[
+  {
+    "policyId": "ab3e31c490d248c592d5bb495823a45fd10f9c8e4f561f13551803fb",
+    "hexName": "43617264616e6f20436f6d6d756e697479204368617269747920436f696e",
+    "fullName": "CCCC",
+    "ticker": "CCCC",
+    "decimals": 0
+  },
+  {
+    "policyId": "2edc63d29e94747f7ef65df559260c994d2ecfe208ac6afa56451738",
+    "hexName": "4b494e47",
+    "fullName": "KING",
+    "ticker": "KING",
+    "decimals": 0
+  },
+  {
+    "policyId": "8ee6a10504961bac6531d79bb32a616187252fece59dc0ac90196451",
+    "hexName": "59454554",
+    "fullName": "YEET",
+    "ticker": "YEET",
+    "decimals": 0
+  },
+  {
+    "policyId": "81fd41215b08ab60f78dda8c076487f65228ace5bb9ca122e8bc05f4",
+    "hexName": "42697473636f696e",
+    "fullName": "Bitscoin",
+    "ticker": "Bitscoin",
+    "decimals": 0
+  },
+  {
+    "policyId": "afc910d7a306d20c12903979d4935ae4307241d03245743548e76783",
+    "hexName": "4153484942",
+    "fullName": "ASHIB",
+    "ticker": "ASHIB",
+    "decimals": 6
+  },
+  {
+    "policyId": "803f9bae1f98e694aaa39ba72f8fa06d6807790af5d2a676bf7abce5",
+    "hexName": "426c6f636b6164656d6961",
+    "fullName": "ACI",
+    "ticker": "ACI",
+    "decimals": 6
+  },
+  {
+    "policyId": "8a1cfae21368b8bebbbed9800fec304e95cce39a2a57dc35e2e3ebaa",
+    "hexName": "4d494c4b",
+    "fullName": "MILK",
+    "ticker": "MILK",
+    "decimals": 0
+  },
+  {
+    "policyId": "7192cee89b2cd731152e60de5fd849f3930c24ac97f6daca09b54cf3",
+    "hexName": "5065616365",
+    "fullName": "Peace",
+    "ticker": "Peace",
+    "decimals": 0
+  },
+  {
+    "policyId": "5029eeccd52fef299509d509a8318fd7930c3dffcce1f9f39ff11ef9",
+    "hexName": "464743",
+    "fullName": "FGC",
+    "ticker": "FGC",
+    "decimals": 0
+  },
+  {
+    "policyId": "fed1c459a47cbff56bd7d29c2dde0de3e9bd15cee02b98622fce82f7",
+    "hexName": "43617264616e6f53696c766572",
+    "fullName": "CD",
+    "ticker": "CD",
+    "decimals": 6
+  },
+  {
+    "policyId": "09f2d4e4a5c3662f4c1e6a7d9600e9605279dbdcedb22d4507cb6e75",
+    "hexName": "535046",
+    "fullName": "SPF",
+    "ticker": "SPF",
+    "decimals": 6
+  },
+  {
+    "policyId": "5dac8536653edc12f6f5e1045d8164b9f59998d3bdc300fc92843489",
+    "hexName": "4e4d4b52",
+    "fullName": "NMKR",
+    "ticker": "NMKR",
+    "decimals": 6
+  },
+  {
+    "policyId": "c881c20e49dbaca3ff6cef365969354150983230c39520b917f5cf7c",
+    "hexName": "4e696b65",
+    "fullName": "Nike",
+    "ticker": "Nike",
+    "decimals": 0
+  },
+  {
+    "policyId": "af2e27f580f7f08e93190a81f72462f153026d06450924726645891b",
+    "hexName": "44524950",
+    "fullName": "DRIP",
+    "ticker": "DRIP",
+    "decimals": 6
+  },
+  {
+    "policyId": "dbc31b04d90b37332813cb4cee3e8f79994643d899a5366797e745ee",
+    "hexName": "465544",
+    "fullName": "FUD",
+    "ticker": "FUD",
+    "decimals": 6
+  },
+  {
+    "policyId": "2c96f49b6e6e32ae69a182e85b74db4edfc9539496a13ab76d1258fa",
+    "hexName": "434e54",
+    "fullName": "CNT",
+    "ticker": "CNT",
+    "decimals": 0
+  },
+  {
+    "policyId": "a26022096c6a8052987dabbfa94849ab7886cf0bb7840044e017d5be",
+    "hexName": "4b756265436f696e",
+    "fullName": "KUBE",
+    "ticker": "KUBE",
+    "decimals": 6
+  },
+  {
+    "policyId": "016be5325fd988fea98ad422fcfd53e5352cacfced5c106a932a35a4",
+    "hexName": "42544e",
+    "fullName": "BTN",
+    "ticker": "BTN",
+    "decimals": 6
+  },
+  {
+    "policyId": "29d222ce763455e3d7a09a665ce554f00ac89d2e99a1a83d267170c6",
+    "hexName": "4d494e",
+    "fullName": "MIN",
+    "ticker": "MIN",
+    "decimals": 6
+  },
+  {
+    "policyId": "e9c28a71273f825b13f38244ccf1fea97c4025813610d01a7c5d681f",
+    "hexName": "436861726c7a20546f6b656e",
+    "fullName": "CHRLZ",
+    "ticker": "CHRLZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "f7516c9f7b347eb412a777f3c711099b199ccd2be23b568a4a3abf6d",
+    "hexName": "535058",
+    "fullName": "SPXT",
+    "ticker": "SPXT",
+    "decimals": 6
+  },
+  {
+    "policyId": "5b26e685cc5c9ad630bde3e3cd48c694436671f3d25df53777ca60ef",
+    "hexName": "4e564c",
+    "fullName": "NVL",
+    "ticker": "NVL",
+    "decimals": 6
+  },
+  {
+    "policyId": "25c5de5f5b286073c593edfd77b48abc7a48e5a4f3d4cd9d428ff935",
+    "hexName": "57414e",
+    "fullName": "WAN",
+    "ticker": "WAN",
+    "decimals": 8
+  },
+  {
+    "policyId": "c0cb38a4ec36859acde16e5b887a848170bef14ed6de073ea9474e2d",
+    "hexName": "57495a444f4745",
+    "fullName": "WIZDOGE",
+    "ticker": "WIZDOGE",
+    "decimals": 0
+  },
+  {
+    "policyId": "b26593517dd1d5db7f8b16163b728e7bc773f7f083db93b9a7bef495",
+    "hexName": "54414441",
+    "fullName": "TADA",
+    "ticker": "TADA",
+    "decimals": 6
+  },
+  {
+    "policyId": "628436be6fa349ebf4ac3d749e87a36981b930d4bb4319c11e64042c",
+    "hexName": "464c5a",
+    "fullName": "FLZ",
+    "ticker": "FLZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "31b52d8b92dcb228555bd32c1eccd7ca3ced2b7e6334f748d7d8238b",
+    "hexName": "44495254",
+    "fullName": "DIRT",
+    "ticker": "DIRT",
+    "decimals": 0
+  },
+  {
+    "policyId": "578029f3edb573e764de1d933a893f9ddcf58411025816b64549b1cf",
+    "hexName": "64656e6e6973",
+    "fullName": "DENNIS",
+    "ticker": "DENNIS",
+    "decimals": 6
+  },
+  {
+    "policyId": "52489ea87bbceaf6375cc22f74c19382a3d5da3f8b9b15d2537044b9",
+    "hexName": "5052535052",
+    "fullName": "PRSPR",
+    "ticker": "PRSPR",
+    "decimals": 0
+  },
+  {
+    "policyId": "12d5f4fefe222d52a4fdcee56f4b272911d7c2202b068a08ebf53270",
+    "hexName": "49414d58",
+    "fullName": "IAMX",
+    "ticker": "IAMX",
+    "decimals": 0
+  },
+  {
+    "policyId": "333926224ce02ae8750e4c4000352e6f1f5dd94115636e944dc43e28",
+    "hexName": "507567436f696e73",
+    "fullName": "PugCoins",
+    "ticker": "PugCoins",
+    "decimals": 0
+  },
+  {
+    "policyId": "ac11a1a07f04ec9efee4c46c359725922377ec5a4596bbed670cc920",
+    "hexName": "4c6f756579",
+    "fullName": "Louey",
+    "ticker": "Louey",
+    "decimals": 0
+  },
+  {
+    "policyId": "04ee2649faded5397274773a9d1c3617cf105a69f89a0fec070045e7",
+    "hexName": "535431",
+    "fullName": "ST1",
+    "ticker": "ST1",
+    "decimals": 0
+  },
+  {
+    "policyId": "92776616f1f32c65a173392e4410a3d8c39dcf6ef768c73af164779c",
+    "hexName": "4d79555344",
+    "fullName": "MyUSD",
+    "ticker": "MyUSD",
+    "decimals": 6
+  },
+  {
+    "policyId": "1ad4f068a49bbf0d4f05335cadeca0519cef34cc1b2bc35b2e5739ae",
+    "hexName": "434f434b",
+    "fullName": "COCK",
+    "ticker": "COCK",
+    "decimals": 0
+  },
+  {
+    "policyId": "133fac9e153194428eb0919be39837b42b9e977fc7298f3ff1b76ef9",
+    "hexName": "5055444759",
+    "fullName": "PUDGY",
+    "ticker": "PUDGY",
+    "decimals": 6
+  },
+  {
+    "policyId": "f10b16b705ef9baac04ca79c0da011633c8c20356b6a42262a1691da",
+    "hexName": "4348454646",
+    "fullName": "CHEFF",
+    "ticker": "CHEFF",
+    "decimals": 0
+  },
+  {
+    "policyId": "561696ab9e70db98f8ff5c12f0fdbd837bd1b95d84c748b04ede8fba",
+    "hexName": "41504f43",
+    "fullName": "APOC",
+    "ticker": "APOC",
+    "decimals": 0
+  },
+  {
+    "policyId": "279c909f348e533da5808898f87f9a14bb2c3dfbbacccd631d927a3f",
+    "hexName": "534e454b",
+    "fullName": "SNEK",
+    "ticker": "SNEK",
+    "decimals": 0
+  },
+  {
+    "policyId": "64700329d616f20f4e83f2bc579513fca51646d47466a97f8fd1c229",
+    "hexName": "444958",
+    "fullName": "DIX",
+    "ticker": "DIX",
+    "decimals": 0
+  },
+  {
+    "policyId": "127fb4d51dc05d6b8a58aba62c1e0d9a3f6a702026a22059f434e632",
+    "hexName": "42616e616e61",
+    "fullName": "BNA",
+    "ticker": "BNA",
+    "decimals": 0
+  },
+  {
+    "policyId": "a2944573e99d2ed3055b808eaa264f0bf119e01fc6b18863067c63e4",
+    "hexName": "4d454c44",
+    "fullName": "MELD",
+    "ticker": "MELD",
+    "decimals": 6
+  },
+  {
+    "policyId": "7e7dbfe44b4145a2f994a9c649ce84a3ee0706f06e9ec82360e0f642",
+    "hexName": "50494e54",
+    "fullName": "PINT",
+    "ticker": "PINT",
+    "decimals": 0
+  },
+  {
+    "policyId": "98dc68b04026544619a251bc01aad2075d28433524ac36cbc75599a1",
+    "hexName": "6d656761686f736b",
+    "fullName": "MHOSK",
+    "ticker": "MHOSK",
+    "decimals": 0
+  },
+  {
+    "policyId": "3010f2093bab0dca73f3ab6e6c1825f0088a86d94d375986e21ae4a3",
+    "hexName": "6e616b61",
+    "fullName": "NAKA",
+    "ticker": "NAKA",
+    "decimals": 0
+  },
+  {
+    "policyId": "cc8d1b026353022abbfcc2e1e71159f9e308d9c6e905ac1db24c7fb6",
+    "hexName": "50617269627573",
+    "fullName": "PBX",
+    "ticker": "PBX",
+    "decimals": 6
+  },
+  {
+    "policyId": "f43a62fdc3965df486de8a0d32fe800963589c41b38946602a0dc535",
+    "hexName": "41474958",
+    "fullName": "AGIX",
+    "ticker": "AGIX",
+    "decimals": 8
+  },
+  {
+    "policyId": "87a59599f8f47db431de642329a275cd4b297f21f1517af9db442cee",
+    "hexName": "506f705570576f726c64",
+    "fullName": "PUW",
+    "ticker": "PUW",
+    "decimals": 0
+  },
+  {
+    "policyId": "2d92af60ee429bce238d3fd9f2531b45457301d74dad1bcf3f9d1dca",
+    "hexName": "564e4d",
+    "fullName": "VNM",
+    "ticker": "VNM",
+    "decimals": 4
+  },
+  {
+    "policyId": "d8014455e0b5db3fc12276d6fcfeccbbcffc27e911ae181ed17a5e62",
+    "hexName": "43617264616e6f506f74696f6e7330303038",
+    "fullName": "CardanoPotions0008",
+    "ticker": "CardanoPotions0008",
+    "decimals": 0
+  },
+  {
+    "policyId": "2b28c81dbba6d67e4b5a997c6be1212cba9d60d33f82444ab8b1f218",
+    "hexName": "42414e4b",
+    "fullName": "BANK",
+    "ticker": "BANK",
+    "decimals": 0
+  },
+  {
+    "policyId": "7192cee89b2cd731152e60de5fd849f3930c24ac97f6daca09b54cf3",
+    "hexName": "4c6f7665",
+    "fullName": "Love",
+    "ticker": "Love",
+    "decimals": 0
+  },
+  {
+    "policyId": "a26b5a1b0c8056375f5f87c6dc2f070fe404ad1320afa2383ec94f81",
+    "hexName": "4d4f4e4b45",
+    "fullName": "MONKE",
+    "ticker": "MONKE",
+    "decimals": 0
+  },
+  {
+    "policyId": "4af324c932f8e2d0feaf71bef7003ca562b030c0b1c8f0530415e6c4",
+    "hexName": "6f7074e3fd55de016745faa19132e690f69982bfdc4099e87cbd1930ab9ad0f0",
+    "fullName": "BTCADA60K",
+    "ticker": "BTCADA60K",
+    "decimals": 6
+  },
+  {
+    "policyId": "d3a034e403b98cbdb0adbc8a3144d7779330916e190d387815bb85c6",
+    "hexName": "50555252",
+    "fullName": "$PURR",
+    "ticker": "$PURR",
+    "decimals": 0
+  },
+  {
+    "policyId": "b9befaf6d58079a8df618555d6371c02029b03b99db6f5b0c9bb2635",
+    "hexName": "485043",
+    "fullName": "Horror_Program Currency",
+    "ticker": "Horror_Program Currency",
+    "decimals": 0
+  },
+  {
+    "policyId": "f4d97191f857096b441a410c036f63d6697dde0c71d2755dd664e302",
+    "hexName": "4d4b41",
+    "fullName": "MKA",
+    "ticker": "MKA",
+    "decimals": 5
+  },
+  {
+    "policyId": "cfee97ff8359f07a0a395a72b424bc6e030503390d864b86d4e0ecf8",
+    "hexName": "4b41495a454e",
+    "fullName": "KAIZEN",
+    "ticker": "KAIZEN",
+    "decimals": 6
+  },
+  {
+    "policyId": "539aeefaf917fe42b65018bf76fa7933c1737f1af92d8ca192ed38c5",
+    "hexName": "4447454d53",
+    "fullName": "DGEMS",
+    "ticker": "DGEMS",
+    "decimals": 0
+  },
+  {
+    "policyId": "718c383a22b0239d034a95e750fd09a5930bddcffc24bf5c566b1cf1",
+    "hexName": "53554d4d4f4e",
+    "fullName": "SUMMON",
+    "ticker": "SUMMON",
+    "decimals": 6
+  },
+  {
+    "policyId": "025146866af908340247fe4e9672d5ac7059f1e8534696b5f920c9e6",
+    "hexName": "6362544843",
+    "fullName": "cbTHC",
+    "ticker": "cbTHC",
+    "decimals": 6
+  },
+  {
+    "policyId": "427a4c0d0ad053641626ac9d3e4f45d50cd149e4ebc914e32f0662c2",
+    "hexName": "4347454d",
+    "fullName": "CGEM",
+    "ticker": "CGEM",
+    "decimals": 6
+  },
+  {
+    "policyId": "5ec2e9813fa385d9333d18186d8257d1b3ebea97bdec2dad74026d8d",
+    "hexName": "50554743484950",
+    "fullName": "PUGCHIP",
+    "ticker": "PUGCHIP",
+    "decimals": 0
+  },
+  {
+    "policyId": "09f5f55fcad17503e6b7acc81de7c80f84b76e76d17085f0e32f1ce2",
+    "hexName": "41574f4f",
+    "fullName": "AWOO",
+    "ticker": "AWOO",
+    "decimals": 6
+  },
+  {
+    "policyId": "885742cd7e0dad321622b5d3ad186797bd50c44cbde8b48be1583fbd",
+    "hexName": "534b554c4c",
+    "fullName": "SKULL",
+    "ticker": "SKULL",
+    "decimals": 0
+  },
+  {
+    "policyId": "d60ea82aa4ca534ec98b977b5ef194152467c12bf189893e0d6454d3",
+    "hexName": "4461726b204d6174746572",
+    "fullName": "EDM",
+    "ticker": "EDM",
+    "decimals": 2
+  },
+  {
+    "policyId": "d01794c4604f3c0e544c537bb1f4268c0e81f45880c00c09ebe4b4a7",
+    "hexName": "4d595354",
+    "fullName": "MYST",
+    "ticker": "MYST",
+    "decimals": 0
+  },
+  {
+    "policyId": "e5fb9dea64fcf75b4e195f109bbf49bb99538b036f4a32681708f7dc",
+    "hexName": "4841544552",
+    "fullName": "HATER",
+    "ticker": "HATER",
+    "decimals": 0
+  },
+  {
+    "policyId": "e8e6b35d977a56ae5a221786eb0b2b348b8555e6e6afc6a54c25d2c5",
+    "hexName": "4379636c72",
+    "fullName": "Cyclr",
+    "ticker": "Cyclr",
+    "decimals": 6
+  },
+  {
+    "policyId": "208a2ca888886921513cb777bb832a8dc685c04de990480151f12150",
+    "hexName": "53484942414441",
+    "fullName": "SHIBA",
+    "ticker": "SHIBA",
+    "decimals": 0
+  },
+  {
+    "policyId": "a02684b9ece84a4341585d2ae813163356ba0ca950091d1935bdb905",
+    "hexName": "4855534b59484f53544c45523033323736",
+    "fullName": "HUSKYHOSTLER03276",
+    "ticker": "HUSKYHOSTLER03276",
+    "decimals": 0
+  },
+  {
+    "policyId": "dda5fdb1002f7389b33e036b6afee82a8189becb6cba852e8b79b4fb",
+    "hexName": "0014df1047454e53",
+    "fullName": "GENS",
+    "ticker": "GENS",
+    "decimals": 6
+  },
+  {
+    "policyId": "4190b2941d9be04acc69c39739bd5acc66d60ccab480d8e20bc87e37",
+    "hexName": "63425443",
+    "fullName": "cBTC",
+    "ticker": "cBTC",
+    "decimals": 8
+  },
+  {
+    "policyId": "1ddcb9c9de95361565392c5bdff64767492d61a96166cb16094e54be",
+    "hexName": "4f5054",
+    "fullName": "OPT",
+    "ticker": "OPT",
+    "decimals": 6
+  },
+  {
+    "policyId": "577f0b1342f8f8f4aed3388b80a8535812950c7a892495c0ecdf0f1e",
+    "hexName": "0014df10464c4454",
+    "fullName": "FLDT",
+    "ticker": "FLDT",
+    "decimals": 6
+  },
+  {
+    "policyId": "cec8e2df35787884fa82abd69b007cd41fdfea36232f64228c92713e",
+    "hexName": "433453",
+    "fullName": "C4S",
+    "ticker": "C4S",
+    "decimals": 0
+  },
+  {
+    "policyId": "53fb41609e208f1cd3cae467c0b9abfc69f1a552bf9a90d51665a4d6",
+    "hexName": "d8ca23a3e08bd16c8102c2e2299b8b9678b6afdeac69b12fc2daa6361606b796",
+    "fullName": "OBOND [DTDN]",
+    "ticker": "OBOND [DTDN]",
+    "decimals": 0
+  },
+  {
+    "policyId": "25f0fc240e91bd95dcdaebd2ba7713fc5168ac77234a3d79449fc20c",
+    "hexName": "534f4349455459",
+    "fullName": "SOC",
+    "ticker": "SOC",
+    "decimals": 6
+  },
+  {
+    "policyId": "53fb41609e208f1cd3cae467c0b9abfc69f1a552bf9a90d51665a4d6",
+    "hexName": "ef6fca8a1774062c56af98e71c27db56663fb9659cc30a9119d613b1960987d0",
+    "fullName": "OBOND [ARA]",
+    "ticker": "OBOND [ARA]",
+    "decimals": 0
+  },
+  {
+    "policyId": "884892bcdc360bcef87d6b3f806e7f9cd5ac30d999d49970e7a903ae",
+    "hexName": "5041564941",
+    "fullName": "PAVIA",
+    "ticker": "PAVIA",
+    "decimals": 0
+  },
+  {
+    "policyId": "69147ab2935ad17bdf0684b44a16f78000ce4d32689ee42821d4302d",
+    "hexName": "43617264616e6f506f74696f6e7330303039",
+    "fullName": "CardanoPotions0009",
+    "ticker": "CardanoPotions0009",
+    "decimals": 0
+  },
+  {
+    "policyId": "9d86482511c8a49f21d5c83ee58a49e2926f70ac57dd73ed20404269",
+    "hexName": "7175657374",
+    "fullName": "QTS",
+    "ticker": "QTS",
+    "decimals": 0
+  },
+  {
+    "policyId": "c7c8acdca9dd95f2530e4ad32ac6cb007fe6a79d684c2c894442ddd5",
+    "hexName": "74657374",
+    "fullName": "TEST",
+    "ticker": "TEST",
+    "decimals": 0
+  },
+  {
+    "policyId": "64f7f2a1a1283e49146687f0ff27d2ccbdda25e1eb4a2f5fdeb24494",
+    "hexName": "43617264616e6f506f74696f6e7330303131",
+    "fullName": "CardanoPotions0011",
+    "ticker": "CardanoPotions0011",
+    "decimals": 0
+  },
+  {
+    "policyId": "07f019ce45fb638353258bda4316ce5eb3d0f76a3fb739c451740849",
+    "hexName": "53414c5459",
+    "fullName": "SALTY",
+    "ticker": "SALTY",
+    "decimals": 6
+  },
+  {
+    "policyId": "8499f3958a114d03b6289185138a60378951a2b5491cb2a080ff7b6e",
+    "hexName": "504d58",
+    "fullName": "PMX",
+    "ticker": "PMX",
+    "decimals": 6
+  },
+  {
+    "policyId": "aa2797739e4f4a1efd5346998febff59909e425b5fddb1b0ec4a24f8",
+    "hexName": "4c6f6f6b7a",
+    "fullName": "LOOKZ",
+    "ticker": "LOOKZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "c88bbd1848db5ea665b1fffbefba86e8dcd723b5085348e8a8d2260f",
+    "hexName": "44414e41",
+    "fullName": "DANA",
+    "ticker": "DANA",
+    "decimals": 6
+  },
+  {
+    "policyId": "25c5de5f5b286073c593edfd77b48abc7a48e5a4f3d4cd9d428ff935",
+    "hexName": "444149",
+    "fullName": "DAI",
+    "ticker": "DAI",
+    "decimals": 6
+  },
+  {
+    "policyId": "6cfbfedd8c8ea23d264f5ae3ef039217100c210bb66de8711f21c903",
+    "hexName": "434e4654",
+    "fullName": "$CNFT",
+    "ticker": "$CNFT",
+    "decimals": 0
+  },
+  {
+    "policyId": "4fde92c2f6dbcfa2879b44f7453872b31394cfb2f70f1d4c411169ac",
+    "hexName": "427562626c65",
+    "fullName": "BUBBLE",
+    "ticker": "BUBBLE",
+    "decimals": 6
+  },
+  {
+    "policyId": "9a9693a9a37912a5097918f97918d15240c92ab729a0b7c4aa144d77",
+    "hexName": "53554e444145",
+    "fullName": "SUNDAE",
+    "ticker": "SUNDAE",
+    "decimals": 6
+  },
+  {
+    "policyId": "02a46eaed53a75095bb7c4562e104437d3c9c33abebf5cfc3bdfada5",
+    "hexName": "56455241",
+    "fullName": "VERA",
+    "ticker": "VERA",
+    "decimals": 0
+  },
+  {
+    "policyId": "98dc68b04026544619a251bc01aad2075d28433524ac36cbc75599a1",
+    "hexName": "686f736b",
+    "fullName": "HOSK",
+    "ticker": "HOSK",
+    "decimals": 0
+  },
+  {
+    "policyId": "f66d78b4a3cb3d37afa0ec36461e51ecbde00f26c8f0a68f94b69880",
+    "hexName": "69555344",
+    "fullName": "iUSD",
+    "ticker": "iUSD",
+    "decimals": 6
+  },
+  {
+    "policyId": "4631aef2ec3bbcccbe47e2a18ec63c4c0daefddde5dde612ddc05a97",
+    "hexName": "474f4c444945",
+    "fullName": "GOLDIE",
+    "ticker": "GOLDIE",
+    "decimals": 6
+  },
+  {
+    "policyId": "9281b28e3839ef01fdde183a11f05e45d0041ece6151d1ec37fd42a0",
+    "hexName": "4d656d65425443",
+    "fullName": "MemeBTC",
+    "ticker": "MemeBTC",
+    "decimals": 7
+  },
+  {
+    "policyId": "b8b57f3bb13f0d4c1cbf8a1a89432b1e117778c49feec29102ea044b",
+    "hexName": "564953494f4e",
+    "fullName": "VISION",
+    "ticker": "VISION",
+    "decimals": 0
+  },
+  {
+    "policyId": "354a6c0acd846b195768ead31c92693ad26d82ba013e7df5d9777081",
+    "hexName": "514149",
+    "fullName": "QAI",
+    "ticker": "QAI",
+    "decimals": 0
+  },
+  {
+    "policyId": "0e14267a8020229adc0184dd25fa3174c3f7d6caadcb4425c70e7c04",
+    "hexName": "756e7369673133383733",
+    "fullName": "unsig13873",
+    "ticker": "unsig13873",
+    "decimals": 0
+  },
+  {
+    "policyId": "14a3455f71c435a04ea1fdb50a3ef4c1cab0e79fb1565627ac66a575",
+    "hexName": "52415645",
+    "fullName": "RAVE",
+    "ticker": "RAVE",
+    "decimals": 0
+  },
+  {
+    "policyId": "8be741cb809416f0785837d00a0fba01de42e3580d96e378f82b24ab",
+    "hexName": "427574746572",
+    "fullName": "Butter",
+    "ticker": "Butter",
+    "decimals": 0
+  },
+  {
+    "policyId": "2eb3e6eac64b7119f948b5529909e45a8e29c88563fa6a3deb78519c",
+    "hexName": "484159",
+    "fullName": "Hay",
+    "ticker": "Hay",
+    "decimals": 0
+  },
+  {
+    "policyId": "5b01968867e13432afaa2f814e1d15e332d6cd0aa77e350972b0967d",
+    "hexName": "4144414f476f7665726e616e6365546f6b656e",
+    "fullName": "ADAO",
+    "ticker": "ADAO",
+    "decimals": 0
+  },
+  {
+    "policyId": "1fc21c9c7df3deca16d699b2d54cf5aa477576adc45f7c1340138a19",
+    "hexName": "4341524453",
+    "fullName": "CARDS",
+    "ticker": "CARDS",
+    "decimals": 6
+  },
+  {
+    "policyId": "0a7e1425cc3e2429208a70867301571c3987b2d7ba8ec50a9153085a",
+    "hexName": "474f44",
+    "fullName": "GOD",
+    "ticker": "GOD",
+    "decimals": 0
+  },
+  {
+    "policyId": "4756b1e7626e84c6de4fe4256b874412c5529a8e75b707ba1e677f46",
+    "hexName": "42455043",
+    "fullName": "BEPC",
+    "ticker": "BEPC",
+    "decimals": 4
+  },
+  {
+    "policyId": "2aa9c1557fcf8e7caa049fa0911a8724a1cdaf8037fe0b431c6ac664",
+    "hexName": "50494759546f6b656e",
+    "fullName": "PIGY",
+    "ticker": "PIGY",
+    "decimals": 0
+  },
+  {
+    "policyId": "401f734390bb03578000c28b7c69d818fce14de3caed59c8aaec08ff",
+    "hexName": "47494e4b4f",
+    "fullName": "GINKO",
+    "ticker": "GINKO",
+    "decimals": 0
+  },
+  {
+    "policyId": "c68307e7ca850513507f1498862a57c7f4fae7ba8e84b8bc074093a9",
+    "hexName": "44494253",
+    "fullName": "DIBS",
+    "ticker": "DIBS",
+    "decimals": 0
+  },
+  {
+    "policyId": "6787a47e9f73efe4002d763337140da27afa8eb9a39413d2c39d4286",
+    "hexName": "524144546f6b656e73",
+    "fullName": "RAD",
+    "ticker": "RAD",
+    "decimals": 0
+  },
+  {
+    "policyId": "97747aa3c33fdfe4b5faa7bb8b4534932c6d980cb13c14c5a547e7ca",
+    "hexName": "70757272414441",
+    "fullName": "purrADA",
+    "ticker": "purrADA",
+    "decimals": 6
+  },
+  {
+    "policyId": "b4273f1d8d0021d188784c3d72dc514f602b7ab8cfb87e3134550c42",
+    "hexName": "446f6765414441",
+    "fullName": "DGADA",
+    "ticker": "DGADA",
+    "decimals": 0
+  },
+  {
+    "policyId": "162ce9d46a21900149027edf2f6ace391d6d1db9450b3c479b857ada",
+    "hexName": "4964696f74636f696e",
+    "fullName": "IDIOT",
+    "ticker": "IDIOT",
+    "decimals": 0
+  },
+  {
+    "policyId": "64c3ebd40ed377989aa3069a2936e07c6ce82df46688c473d9215206",
+    "hexName": "64676166",
+    "fullName": "DGAF",
+    "ticker": "DGAF",
+    "decimals": 0
+  },
+  {
+    "policyId": "8f52f6a88acf6127bc4758a16b6047afc4da7887feae121ec217b75a",
+    "hexName": "534e4f57",
+    "fullName": "SNOW",
+    "ticker": "SNOW",
+    "decimals": 0
+  },
+  {
+    "policyId": "f66d78b4a3cb3d37afa0ec36461e51ecbde00f26c8f0a68f94b69880",
+    "hexName": "69455448",
+    "fullName": "iETH",
+    "ticker": "iETH",
+    "decimals": 6
+  },
+  {
+    "policyId": "f4ef9cf6adedfdac303ea994e15c46ef405a748dbb725a81ad686733",
+    "hexName": "4b495453",
+    "fullName": "KITS",
+    "ticker": "KITS",
+    "decimals": 6
+  },
+  {
+    "policyId": "5ad8deb64bfec21ad2d96e1270b5873d0c4d0f231b928b4c39eb2435",
+    "hexName": "61646f736961",
+    "fullName": "ADO",
+    "ticker": "ADO",
+    "decimals": 6
+  },
+  {
+    "policyId": "8daefa391220bd0d8d007f3748d870f7f3c106040314c8515ccc35a5",
+    "hexName": "464c4143",
+    "fullName": "FLAC",
+    "ticker": "FLAC",
+    "decimals": 6
+  },
+  {
+    "policyId": "62b6304a38a84a58f1ac7ad1c0e477377736d931ba6cc334e43e162f",
+    "hexName": "43617264616e6f506f74696f6e7330303033",
+    "fullName": "CardanoPotions0003",
+    "ticker": "CardanoPotions0003",
+    "decimals": 0
+  },
+  {
+    "policyId": "59515c449f1ec1d21a4b2d93013337d13b29d74c3a665a11d5b7fc66",
+    "hexName": "44534c5652",
+    "fullName": "DSLVR",
+    "ticker": "DSLVR",
+    "decimals": 7
+  },
+  {
+    "policyId": "8d0ae3c5b13b47907b16511a540d47436d12dcc96453c0f59089b451",
+    "hexName": "42524f4f4d",
+    "fullName": "BROOM",
+    "ticker": "BROOM",
+    "decimals": 0
+  },
+  {
+    "policyId": "4623ab311b7d982d8d26fcbe1a9439ca56661aafcdcd8d8a0ef31fd6",
+    "hexName": "475245454e53",
+    "fullName": "GREENS",
+    "ticker": "GREENS",
+    "decimals": 6
+  },
+  {
+    "policyId": "585cfcbdd0786e961187999e5d5d36b38d1ebc1c4112a0a95a8bd477",
+    "hexName": "424c43",
+    "fullName": "BLC",
+    "ticker": "BLC",
+    "decimals": 6
+  },
+  {
+    "policyId": "8fef2d34078659493ce161a6c7fba4b56afefa8535296a5743f69587",
+    "hexName": "41414441",
+    "fullName": "LENFI",
+    "ticker": "LENFI",
+    "decimals": 6
+  },
+  {
+    "policyId": "58ad4a35e6e40d7e5833af259531dfb660d31b805166839d3fac305a",
+    "hexName": "4a45535553",
+    "fullName": "JESUS",
+    "ticker": "JESUS",
+    "decimals": 4
+  },
+  {
+    "policyId": "edfd7a1d77bcb8b884c474bdc92a16002d1fb720e454fa6e99344479",
+    "hexName": "4e5458",
+    "fullName": "NTX",
+    "ticker": "NTX",
+    "decimals": 6
+  },
+  {
+    "policyId": "53fb41609e208f1cd3cae467c0b9abfc69f1a552bf9a90d51665a4d6",
+    "hexName": "f9c09e1913e29072938cad1fda7b70939090c0be1f7fa48150a2e63a2b9ad715",
+    "fullName": "OBOND [VICIS]",
+    "ticker": "OBOND [VICIS]",
+    "decimals": 0
+  },
+  {
+    "policyId": "25c5de5f5b286073c593edfd77b48abc7a48e5a4f3d4cd9d428ff935",
+    "hexName": "425443",
+    "fullName": "BTC",
+    "ticker": "BTC",
+    "decimals": 8
+  },
+  {
+    "policyId": "d3558649b7874a1a596378515f9b80da63e73f324439ea113d34c9bb",
+    "hexName": "42454147",
+    "fullName": "BEAG",
+    "ticker": "BEAG",
+    "decimals": 0
+  },
+  {
+    "policyId": "d5dec6074942b36b50975294fd801f7f28c907476b1ecc1b57c916ed",
+    "hexName": "524154",
+    "fullName": "RAT",
+    "ticker": "RAT",
+    "decimals": 6
+  },
+  {
+    "policyId": "0c78f619e54a5d00e143f66181a2c500d0c394b38a10e86cd1a23c5f",
+    "hexName": "41444158",
+    "fullName": "ADAX",
+    "ticker": "ADAX",
+    "decimals": 0
+  },
+  {
+    "policyId": "7f376e3d1cf52e6c4350a1a91c8f8d0f0b63baedd443999ebe8fe57a",
+    "hexName": "424f52475a",
+    "fullName": "BORGZ",
+    "ticker": "BORGZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "79906b9c8d2fbddeba9658387a2a1187f3edd8f546e5dc49225710a1",
+    "hexName": "46524f47474945",
+    "fullName": "FROGGIE",
+    "ticker": "FROGGIE",
+    "decimals": 0
+  },
+  {
+    "policyId": "547ceed647f57e64dc40a29b16be4f36b0d38b5aa3cd7afb286fc094",
+    "hexName": "6262486f736b79",
+    "fullName": "bbHosky",
+    "ticker": "bbHosky",
+    "decimals": 0
+  },
+  {
+    "policyId": "85d87212f6096732ac1cdbf604a12aa8cfd1fd0b66ab28fc77d3764c",
+    "hexName": "44494e4f",
+    "fullName": "DINO",
+    "ticker": "DINO",
+    "decimals": 6
+  },
+  {
+    "policyId": "98dc68b04026544619a251bc01aad2075d28433524ac36cbc75599a1",
+    "hexName": "6d6963726f686f736b",
+    "fullName": "\u00b5HOSK",
+    "ticker": "\u00b5HOSK",
+    "decimals": 0
+  },
+  {
+    "policyId": "0c92aabef5a8f91a36470d0762806c165c0d04aa992541e25d55486a",
+    "hexName": "424347",
+    "fullName": "BCG",
+    "ticker": "BCG",
+    "decimals": 6
+  },
+  {
+    "policyId": "f7c777fdd4531cf1c477551360e45b9684073c05c2fa61334f8f9add",
+    "hexName": "5665726974726565546f6b656e",
+    "fullName": "TREES",
+    "ticker": "TREES",
+    "decimals": 0
+  },
+  {
+    "policyId": "078eafce5cd7edafdf63900edef2c1ea759e77f30ca81d6bbdeec924",
+    "hexName": "79756d6d69",
+    "fullName": "YUMMI",
+    "ticker": "YUMMI",
+    "decimals": 0
+  },
+  {
+    "policyId": "5d0c8a159e94bb2c1a8c4df51e889e1dec8006c5d34e05b8d9843f5f",
+    "hexName": "4d494c4b2d4c4245",
+    "fullName": "MLBE",
+    "ticker": "MLBE",
+    "decimals": 6
+  },
+  {
+    "policyId": "d2442fa6d08c72811d4bccdb36d0cb35cb28f4db4c5793ef00aff5f1",
+    "hexName": "244652414354414c53",
+    "fullName": "FRACT",
+    "ticker": "FRACT",
+    "decimals": 0
+  },
+  {
+    "policyId": "b84d709a29b5f2f0f79d48941df55d3e5823a1ecc290a6091d1f6841",
+    "hexName": "437574794d616c3139373333",
+    "fullName": "CutyMal19733",
+    "ticker": "CutyMal19733",
+    "decimals": 0
+  },
+  {
+    "policyId": "fed1c459a47cbff56bd7d29c2dde0de3e9bd15cee02b98622fce82f7",
+    "hexName": "43617264616e6f476f6c64",
+    "fullName": "CD",
+    "ticker": "CD",
+    "decimals": 6
+  },
+  {
+    "policyId": "fb47280589dfd58b8423aa93cc0b2b8252288b5344ef3c43084ac663",
+    "hexName": "4c4344",
+    "fullName": "LCD",
+    "ticker": "LCD",
+    "decimals": 0
+  },
+  {
+    "policyId": "772791eb3f4b92874a49d487375a90db631988291c1a643b817668ca",
+    "hexName": "4d616420446f6720546f6b656e",
+    "fullName": "MD",
+    "ticker": "MD",
+    "decimals": 8
+  },
+  {
+    "policyId": "c490a79c6afd84c5e5dfe487a5fe8b6009c239befff69745c43711ef",
+    "hexName": "524f434b4554",
+    "fullName": "ROCKET",
+    "ticker": "ROCKET",
+    "decimals": 0
+  },
+  {
+    "policyId": "a70d9a56a72ea4d2694256fcdfa88b12963d7ec8995b30de08f70a8c",
+    "hexName": "534e4b",
+    "fullName": "SNAKE",
+    "ticker": "SNAKE",
+    "decimals": 0
+  },
+  {
+    "policyId": "1d76557b2e2df0c19d23513081c1916a92f7ab313d7c06b1e3998283",
+    "hexName": "756e7369676e6564746f6b656e",
+    "fullName": "UNSIG",
+    "ticker": "UNSIG",
+    "decimals": 0
+  },
+  {
+    "policyId": "9f452e23804df3040b352b478039357b506ad3b50d2ce0d7cbd5f806",
+    "hexName": "435456",
+    "fullName": "CTV",
+    "ticker": "CTV",
+    "decimals": 0
+  },
+  {
+    "policyId": "37b47fcaeb067582eb0b4230632633adffa7753481139b67cc8fe3ce",
+    "hexName": "5045524e4953",
+    "fullName": "PERNIS",
+    "ticker": "PERNIS",
+    "decimals": 0
+  },
+  {
+    "policyId": "681b5d0383ac3b457e1bcc453223c90ccef26b234328f45fa10fd276",
+    "hexName": "4a5047",
+    "fullName": "JPG",
+    "ticker": "JPG",
+    "decimals": 6
+  },
+  {
+    "policyId": "6bc9812630f043bbcf0259ec65c67aa8270ab8eab0c413877fd16a73",
+    "hexName": "43617264616e6f41706530303030",
+    "fullName": "CardanoApe0000",
+    "ticker": "CardanoApe0000",
+    "decimals": 0
+  },
+  {
+    "policyId": "86abe45be4d8fb2e8f28e8047d17d0ba5592f2a6c8c452fc88c2c143",
+    "hexName": "58524159",
+    "fullName": "XRAY",
+    "ticker": "XRAY",
+    "decimals": 6
+  },
+  {
+    "policyId": "b34b3ea80060ace9427bda98690a73d33840e27aaa8d6edb7f0c757a",
+    "hexName": "634e455441",
+    "fullName": "cNETA",
+    "ticker": "cNETA",
+    "decimals": 0
+  },
+  {
+    "policyId": "db30c7905f598ed0154de14f970de0f61f0cb3943ed82c891968480a",
+    "hexName": "434c4150",
+    "fullName": "CLAP",
+    "ticker": "CLAP",
+    "decimals": 3
+  },
+  {
+    "policyId": "f13515ca37ae4a0cf44f13860f325f0d017ee9988f2e7598c06e1d9a",
+    "hexName": "42554653",
+    "fullName": "BUFS",
+    "ticker": "BUFS",
+    "decimals": 0
+  },
+  {
+    "policyId": "a3931691f5c4e65d01c429e473d0dd24c51afdb6daf88e632a6c1e51",
+    "hexName": "6f7263666178746f6b656e",
+    "fullName": "FACT",
+    "ticker": "FACT",
+    "decimals": 6
+  },
+  {
+    "policyId": "f09deff3d6fe282874ac5c3c541f566cfe5ecec9058b814f1acd0742",
+    "hexName": "62624c6f6273746572",
+    "fullName": "bbLobster",
+    "ticker": "bbLobster",
+    "decimals": 0
+  },
+  {
+    "policyId": "c1b52de984edf35066439cd231683683040a8a669913e4ede85c0bb1",
+    "hexName": "4c696e64614c6f7665",
+    "fullName": "LLOVE",
+    "ticker": "LLOVE",
+    "decimals": 0
+  },
+  {
+    "policyId": "8654e8b350e298c80d2451beb5ed80fc9eee9f38ce6b039fb8706bc3",
+    "hexName": "4c4f4253544552",
+    "fullName": "$LOBSTER",
+    "ticker": "$LOBSTER",
+    "decimals": 0
+  },
+  {
+    "policyId": "1c1e38cfcc815d2015dbda6bee668b2e707ee3f9d038d96668fcf63c",
+    "hexName": "4567677363617065436c75624561737465725a656e6e79",
+    "fullName": "EZY",
+    "ticker": "EZY",
+    "decimals": 0
+  },
+  {
+    "policyId": "57684adcb032c8dbc40179841bed987d8dee7472617a0e5c25ef4140",
+    "hexName": "59617953776170",
+    "fullName": "YAY",
+    "ticker": "YAY",
+    "decimals": 0
+  },
+  {
+    "policyId": "4cb48d60d1f7823d1307c61b9ecf472ff78cf22d1ccc5786d59461f8",
+    "hexName": "4144414d4f4f4e",
+    "fullName": "ADAMOON",
+    "ticker": "ADAMOON",
+    "decimals": 0
+  },
+  {
+    "policyId": "a5039068cb2b3ebcf874c0a4b012f19409befcf99e38c34c080af9d5",
+    "hexName": "52686f6469756d436f696e",
+    "fullName": "RHOD",
+    "ticker": "RHOD",
+    "decimals": 6
+  },
+  {
+    "policyId": "52c630bc4ad8823d1dddb729d47dd8991f50bb94ea700b6828d9180a",
+    "hexName": "245348415244",
+    "fullName": "$SHARD",
+    "ticker": "$SHARD",
+    "decimals": 6
+  },
+  {
+    "policyId": "96ad5ab136d2193dda2afb662285b93e48d265e14df59ee0f33925ae",
+    "hexName": "4447454d",
+    "fullName": "DGEM",
+    "ticker": "DGEM",
+    "decimals": 7
+  },
+  {
+    "policyId": "27eee19588c997ca54d3137f64afe55a18dfcf9062fa83a724bf2357",
+    "hexName": "4845584f4e49554d",
+    "fullName": "HEXO",
+    "ticker": "HEXO",
+    "decimals": 0
+  },
+  {
+    "policyId": "961f2cac0bb1967d74691af179350c1e1062c7298d1f7be1e4696e31",
+    "hexName": "2444455250",
+    "fullName": "DERP",
+    "ticker": "DERP",
+    "decimals": 0
+  },
+  {
+    "policyId": "20cd68533b47565f3c61efb39c30fdace9963bfa4c0060b613448e3c",
+    "hexName": "50524f584945",
+    "fullName": "PROXIE",
+    "ticker": "PROXIE",
+    "decimals": 6
+  },
+  {
+    "policyId": "a00fdf4fb9ab6c8c2bd1533a2f14855edf12aed5ecbf96d4b5f5b939",
+    "hexName": "4334",
+    "fullName": "C4",
+    "ticker": "C4",
+    "decimals": 0
+  },
+  {
+    "policyId": "58b9f55e6ea9828dea7a8d9f49420171c6360f99b5e6e86de5fdb644",
+    "hexName": "4170654e6174696f6e32373332",
+    "fullName": "ApeNation2732",
+    "ticker": "ApeNation2732",
+    "decimals": 0
+  },
+  {
+    "policyId": "39c91479aa6d81149ae3f0271ae465eeb2258d0c5dc984450d69b0f1",
+    "hexName": "43425443",
+    "fullName": "CBTC",
+    "ticker": "CBTC",
+    "decimals": 0
+  },
+  {
+    "policyId": "c48cbb3d5e57ed56e276bc45f99ab39abe94e6cd7ac39fb402da47ad",
+    "hexName": "0014df105553444d",
+    "fullName": "USDM",
+    "ticker": "USDM",
+    "decimals": 6
+  },
+  {
+    "policyId": "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a",
+    "hexName": "6d7565736c6973776170",
+    "fullName": "muesliswap",
+    "ticker": "muesliswap",
+    "decimals": 0
+  },
+  {
+    "policyId": "dd5c3cebfbdef5c37aff39980e85e48ea80c9cde855a97d16105e2c4",
+    "hexName": "47504159",
+    "fullName": "GPAY",
+    "ticker": "GPAY",
+    "decimals": 0
+  },
+  {
+    "policyId": "2a80c713e0d518f84e0553957e3d581c9326cfc5931ea1f4dd0fb292",
+    "hexName": "0014df107374616b65636f696e",
+    "fullName": "STK",
+    "ticker": "STK",
+    "decimals": 6
+  },
+  {
+    "policyId": "a4da8764a57e66a0085b5bfcde96c89b798d92ee83a75f59237e375b",
+    "hexName": "46495245",
+    "fullName": "FIRE",
+    "ticker": "FIRE",
+    "decimals": 0
+  },
+  {
+    "policyId": "10a1b74dec474a68607e7e93977d2709a9b0ef09ed49d10f8a8b3ba5",
+    "hexName": "43617368657746",
+    "fullName": "CSHWF",
+    "ticker": "CSHWF",
+    "decimals": 0
+  },
+  {
+    "policyId": "3cbb2431cbb99954e2a2d6bda793f8d9bffa0150dc37f89db6676a2c",
+    "hexName": "504f4f4c",
+    "fullName": "POOL",
+    "ticker": "POOL",
+    "decimals": 0
+  },
+  {
+    "policyId": "d1333653aa3ac24adfa9c6d09c1a2cc8e2b7b86ad334c17f2acb8647",
+    "hexName": "42696f546f6b656e",
+    "fullName": "BIO",
+    "ticker": "BIO",
+    "decimals": 0
+  },
+  {
+    "policyId": "3d63964527efea27f0e6dcdd314b68bf8c9fa34249d3989d49007c6a",
+    "hexName": "4d454f57",
+    "fullName": "MEOW",
+    "ticker": "MEOW",
+    "decimals": 0
+  },
+  {
+    "policyId": "04b95368393c821f180deee8229fbd941baaf9bd748ebcdbf7adbb14",
+    "hexName": "7273455247",
+    "fullName": "rsERG",
+    "ticker": "rsERG",
+    "decimals": 9
+  },
+  {
+    "policyId": "e98165a25cd0320b25f22d686268e58e66f855b6d85974947ccd708d",
+    "hexName": "414441464f58",
+    "fullName": "ADAFOX",
+    "ticker": "ADAFOX",
+    "decimals": 0
+  },
+  {
+    "policyId": "95a427e384527065f2f8946f5e86320d0117839a5e98ea2c0b55fb00",
+    "hexName": "48554e54",
+    "fullName": "HUNT",
+    "ticker": "HUNT",
+    "decimals": 6
+  },
+  {
+    "policyId": "0fd9819a9d7fb414880883f43a42d33458f12bc5f9841cec6457dc15",
+    "hexName": "5669527553",
+    "fullName": "virus",
+    "ticker": "virus",
+    "decimals": 0
+  },
+  {
+    "policyId": "25e6b5d28054fb238cb6215d106ad17a8f673dbaee6d7f2cade6bcdb",
+    "hexName": "476f6c6457617272696f724d61736b",
+    "fullName": "GoldWarriorMask",
+    "ticker": "GoldWarriorMask",
+    "decimals": 0
+  },
+  {
+    "policyId": "b0af30edf2c7f11465853821137e0a6ebc395cab71ee39c24127ffb4",
+    "hexName": "4e465443",
+    "fullName": "NFTC",
+    "ticker": "NFTC",
+    "decimals": 0
+  },
+  {
+    "policyId": "10a49b996e2402269af553a8a96fb8eb90d79e9eca79e2b4223057b6",
+    "hexName": "4745524f",
+    "fullName": "GERO",
+    "ticker": "GERO",
+    "decimals": 6
+  },
+  {
+    "policyId": "815f432f5d9b36e77989d0fea374292e9c8330c5146ca8500632b3cf",
+    "hexName": "5371756964",
+    "fullName": "SQUID",
+    "ticker": "SQUID",
+    "decimals": 0
+  },
+  {
+    "policyId": "a1c1e3811c5adb591e026164a519eaf3d2708ee02e5712f891f80b78",
+    "hexName": "464142",
+    "fullName": "FAB",
+    "ticker": "FAB",
+    "decimals": 0
+  },
+  {
+    "policyId": "231deb37ef169dcf47d720cb3d09fccb6c1915f88638204290b1458a",
+    "hexName": "617274",
+    "fullName": "ART",
+    "ticker": "ART",
+    "decimals": 0
+  },
+  {
+    "policyId": "89ee1f82a513be9de47853a3dc9f93e314dfec43e78148c896729e82",
+    "hexName": "425249434b5a",
+    "fullName": "BRICKZ",
+    "ticker": "BRICKZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "48d67fb303c89ed4297a95af6952a0195326ef4116ce29a109079427",
+    "hexName": "47616c676f",
+    "fullName": "GALGO",
+    "ticker": "GALGO",
+    "decimals": 0
+  },
+  {
+    "policyId": "8f9c32977d2bacb87836b64f7811e99734c6368373958da20172afba",
+    "hexName": "4d5949454c44",
+    "fullName": "MYIELD",
+    "ticker": "MYIELD",
+    "decimals": 6
+  },
+  {
+    "policyId": "776da8416dc56107275424b009eb82353235f10ef8e0b77088fd7964",
+    "hexName": "5472757374436f696e",
+    "fullName": "Trust",
+    "ticker": "Trust",
+    "decimals": 0
+  },
+  {
+    "policyId": "cdaaee586376139ee8c3cc4061623968810d177ca5c300afb890b48a",
+    "hexName": "43415354",
+    "fullName": "$CAST",
+    "ticker": "$CAST",
+    "decimals": 0
+  },
+  {
+    "policyId": "59eccbbd4cdf738e6272ccabfbb6d1c02f6335ed4f860bfde4d53cb8",
+    "hexName": "4752415659",
+    "fullName": "GRAVY",
+    "ticker": "GRAVY",
+    "decimals": 0
+  },
+  {
+    "policyId": "a2936e00439913f1ac105c29883c013322360247c409343028b831be",
+    "hexName": "4d564f5543484552",
+    "fullName": "MVOUCHER",
+    "ticker": "MVOUCHER",
+    "decimals": 6
+  },
+  {
+    "policyId": "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a",
+    "hexName": "756e646566696e6564",
+    "fullName": "undefined",
+    "ticker": "undefined",
+    "decimals": 0
+  },
+  {
+    "policyId": "52162581184a457fad70470161179c5766f00237d4b67e0f1df1b4e6",
+    "hexName": "5452544c",
+    "fullName": "TRTL",
+    "ticker": "TRTL",
+    "decimals": 0
+  },
+  {
+    "policyId": "5df412e3eb27ffa1665302f8bf97f74f89fa42215d3e5b09464c1c14",
+    "hexName": "4c75636b794e654b6f696e",
+    "fullName": "LuckyNeKoin",
+    "ticker": "LuckyNeKoin",
+    "decimals": 0
+  },
+  {
+    "policyId": "902387fb6b2d0ddf709c54e9a89f708e50e98600696f881830167120",
+    "hexName": "5449434b4554",
+    "fullName": "TICKET",
+    "ticker": "TICKET",
+    "decimals": 0
+  },
+  {
+    "policyId": "ff791cdf3857627970df7f7930bfb7c8eee3ce45df43860d68b9ef60",
+    "hexName": "4348494d5059",
+    "fullName": "CHIMP",
+    "ticker": "CHIMP",
+    "decimals": 0
+  },
+  {
+    "policyId": "6c2cd1047942afcfef01cc2a7643700f8718493007f4694cb317321f",
+    "hexName": "50756e6b734f6e4163696430323939",
+    "fullName": "PunksOnAcid0299",
+    "ticker": "PunksOnAcid0299",
+    "decimals": 0
+  },
+  {
+    "policyId": "fce30a7f7d16e48c69a7847ec908fe098a0efa0dbc99bad8e2aec15a",
+    "hexName": "69646f6c",
+    "fullName": "IDOL",
+    "ticker": "IDOL",
+    "decimals": 1
+  },
+  {
+    "policyId": "ca942cb8bb5d1ef750766ded355f320880539111f10efa2b1a478ff9",
+    "hexName": "524147",
+    "fullName": "RAG",
+    "ticker": "RAG",
+    "decimals": 0
+  },
+  {
+    "policyId": "37b03cbc4b1a4fcafc54e70cc31c65b4747a898984c574b3393e003c",
+    "hexName": "534b494c4c",
+    "fullName": "SKILL",
+    "ticker": "SKILL",
+    "decimals": 6
+  },
+  {
+    "policyId": "da247e71f71b0195c8188bf43827f34c9357cc388fceed596d100d95",
+    "hexName": "424f54",
+    "fullName": "BOT",
+    "ticker": "BOT",
+    "decimals": 0
+  },
+  {
+    "policyId": "d9b778a32dfa1366ea17e8ff88eeb39e4ce49d0e917586f73871d633",
+    "hexName": "43617264616e6f444f4745",
+    "fullName": "CDOGE",
+    "ticker": "CDOGE",
+    "decimals": 4
+  },
+  {
+    "policyId": "ad1c1ed3a0bb6f83630ef052a31b71ba3287bf4bafa8370758f14d31",
+    "hexName": "5349434b",
+    "fullName": "SICK",
+    "ticker": "SICK",
+    "decimals": 0
+  },
+  {
+    "policyId": "bb4cfbe0f6be60b80f90f815e8353b93431de4df785d75350b9d214a",
+    "hexName": "48455242",
+    "fullName": "HERB",
+    "ticker": "HERB",
+    "decimals": 6
+  },
+  {
+    "policyId": "a3914cb7a564d010c7b67774ac8720a8ece3a758279b51d8a1c05cc5",
+    "hexName": "5745444e4553444159",
+    "fullName": "WDAY",
+    "ticker": "WDAY",
+    "decimals": 0
+  },
+  {
+    "policyId": "63766427b4499dd678cb8b715dec3265dd292279ce7779447e3651e5",
+    "hexName": "4b4f5a",
+    "fullName": "KOZ",
+    "ticker": "KOZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "c9f955eeffa84e42363b4992281d32dd2f9239153d6c66420a9acc15",
+    "hexName": "4c4f47",
+    "fullName": "LOG",
+    "ticker": "LOG",
+    "decimals": 6
+  },
+  {
+    "policyId": "fbae99b8679369079a7f6f0da14a2cf1c2d6bfd3afdf3a96a64ab67a",
+    "hexName": "0014df1047454e5358",
+    "fullName": "GENSX",
+    "ticker": "GENSX",
+    "decimals": 6
+  },
+  {
+    "policyId": "d32b7db13173d23848be1bd2324ff37845169d054dd8550eaee07d95",
+    "hexName": "43617264616e6f506f74696f6e7330303132",
+    "fullName": "CardanoPotions0012",
+    "ticker": "CardanoPotions0012",
+    "decimals": 0
+  },
+  {
+    "policyId": "4fd0d998dc0700ca6ef89fafff05fbf523a3a25c1fc8314bf7e4d1c2",
+    "hexName": "47726f777468",
+    "fullName": "GT",
+    "ticker": "GT",
+    "decimals": 0
+  },
+  {
+    "policyId": "2a6c1ea5b4805b1aabae53758e9e2e6623e7332cded72fef7e1ff8bf",
+    "hexName": "50726f786965576f6d62",
+    "fullName": "ProxieWomb",
+    "ticker": "ProxieWomb",
+    "decimals": 0
+  },
+  {
+    "policyId": "f4364875e75320d405ceadebdf0db63fadaff55c72d4ff6b82f0676a",
+    "hexName": "434152474f",
+    "fullName": "CARGO",
+    "ticker": "CARGO",
+    "decimals": 6
+  },
+  {
+    "policyId": "438514ae1beb020d35e5389993447cea29637d6272c918017988ef36",
+    "hexName": "4164615969656c64",
+    "fullName": "ADY",
+    "ticker": "ADY",
+    "decimals": 7
+  },
+  {
+    "policyId": "501dd5d2fbab6af0a26b1421076ff3afc4d5a34d6b3f9694571116ea",
+    "hexName": "4b4f4e4441",
+    "fullName": "KONDA",
+    "ticker": "KONDA",
+    "decimals": 0
+  },
+  {
+    "policyId": "4ddbf636395d5e929352da622ade9075df9751557dd2d06da0e13cc1",
+    "hexName": "4a4f495a4956",
+    "fullName": "JOIZIV",
+    "ticker": "JOIZIV",
+    "decimals": 0
+  },
+  {
+    "policyId": "adb13ebed342b6cd6fff67405830f8cab05c6f44db597150ccc9379f",
+    "hexName": "4567675368617264",
+    "fullName": "EGGZ",
+    "ticker": "EGGZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "a0028f350aaabe0545fdcb56b039bfb08e4bb4d8c4d7c3c7d481c235",
+    "hexName": "484f534b59",
+    "fullName": "HOSKY",
+    "ticker": "HOSKY",
+    "decimals": 0
+  },
+  {
+    "policyId": "e629ee88f6dcad8948e420b929e114c8785e2d4fb9d5c077157a3b37",
+    "hexName": "424c5550",
+    "fullName": "Blue Planet Token",
+    "ticker": "Blue Planet Token",
+    "decimals": 0
+  },
+  {
+    "policyId": "c601f21dbc9df02428b9ab9e13e1fe4de9906394a4f71e841ebbaf53",
+    "hexName": "4c4954",
+    "fullName": "LIT",
+    "ticker": "LIT",
+    "decimals": 6
+  },
+  {
+    "policyId": "6e6098846537ca48ff18eac70b7f5040c69ba2c5570521b6eb00fdf5",
+    "hexName": "6461646479",
+    "fullName": "DADDY",
+    "ticker": "DADDY",
+    "decimals": 0
+  },
+  {
+    "policyId": "25c5de5f5b286073c593edfd77b48abc7a48e5a4f3d4cd9d428ff935",
+    "hexName": "55534443",
+    "fullName": "USDC",
+    "ticker": "USDC",
+    "decimals": 8
+  },
+  {
+    "policyId": "a8102151506a8a81dc1763ee05cdd01d787f50dfeb6f843071e1c6a0",
+    "hexName": "484f5749",
+    "fullName": "HOWI",
+    "ticker": "HOWI",
+    "decimals": 6
+  },
+  {
+    "policyId": "4d8469c80677574a5dd23b0fdd0eb0057fb6ce4e20cf21c7e8655f95",
+    "hexName": "4348524f4d41",
+    "fullName": "CHROMA",
+    "ticker": "CHROMA",
+    "decimals": 0
+  },
+  {
+    "policyId": "2adf188218a66847024664f4f63939577627a56c090f679fe366c5ee",
+    "hexName": "535441424c45",
+    "fullName": "STABLE",
+    "ticker": "STABLE",
+    "decimals": 0
+  },
+  {
+    "policyId": "59bc0484225992f0fafffc472784f89f1c75e496cb570ec2922b9243",
+    "hexName": "444344",
+    "fullName": "DCD",
+    "ticker": "DCD",
+    "decimals": 6
+  },
+  {
+    "policyId": "b201928d6bdb21c2e39205a92e226653d6002b949eaaacde3d986c2f",
+    "hexName": "524f4e",
+    "fullName": "RON",
+    "ticker": "RON",
+    "decimals": 0
+  },
+  {
+    "policyId": "38ad9dc3aec6a2f38e220142b9aa6ade63ebe71f65e7cc2b7d8a8535",
+    "hexName": "434c4159",
+    "fullName": "CLAY",
+    "ticker": "CLAY",
+    "decimals": 4
+  },
+  {
+    "policyId": "75fcc276057db5fc48eae0e11453c773c8a54604c3086bf9d95ac1b7",
+    "hexName": "43485259",
+    "fullName": "NOVA",
+    "ticker": "NOVA",
+    "decimals": 6
+  },
+  {
+    "policyId": "4fd6d8b1eac12b029cd68acd25220c20dd13b9c4b0d0b585d49135d3",
+    "hexName": "53414354",
+    "fullName": "SACT",
+    "ticker": "SACT",
+    "decimals": 0
+  },
+  {
+    "policyId": "53fb41609e208f1cd3cae467c0b9abfc69f1a552bf9a90d51665a4d6",
+    "hexName": "f65eac234a1306d8a144af5772e83d8fceb5c05513868be24cb763b3dc8f5a3f",
+    "fullName": "OBOND [PSB]",
+    "ticker": "OBOND [PSB]",
+    "decimals": 0
+  },
+  {
+    "policyId": "c27600f3aff3d94043464a33786429b78e6ab9df5e1d23b774acb34c",
+    "hexName": "434e4354",
+    "fullName": "CNCT",
+    "ticker": "CNCT",
+    "decimals": 4
+  },
+  {
+    "policyId": "a5bb0e5bb275a573d744a021f9b3bff73595468e002755b447e01559",
+    "hexName": "484f534b594361736847726162303030303033363630",
+    "fullName": "HOSKYCashGrab000003660",
+    "ticker": "HOSKYCashGrab000003660",
+    "decimals": 0
+  },
+  {
+    "policyId": "a891242ea63771bc37d810143ab050677102cab7ebeb88bed8fa670d",
+    "hexName": "43617264616e6f4b69647a4379626572547275636b30323334",
+    "fullName": "CardanoKidzCyberTruck0234",
+    "ticker": "CardanoKidzCyberTruck0234",
+    "decimals": 0
+  },
+  {
+    "policyId": "8e51398904a5d3fc129fbf4f1589701de23c7824d5c90fdb9490e15a",
+    "hexName": "434841524c4933",
+    "fullName": "C3",
+    "ticker": "C3",
+    "decimals": 6
+  },
+  {
+    "policyId": "b6798a74fb7441ef5f7af1ff4ea6150bbb7aaeb0aca0113e558592f6",
+    "hexName": "584449414d4f4e44",
+    "fullName": "XDIAMOND",
+    "ticker": "XDIAMOND",
+    "decimals": 0
+  },
+  {
+    "policyId": "007394e3117755fbb0558b93c54ce3bc6c85770920044ade143dc742",
+    "hexName": "505443",
+    "fullName": "PTC",
+    "ticker": "PTC",
+    "decimals": 0
+  },
+  {
+    "policyId": "ac9998855c15efcc7dc5b44522d9cca6f1f0865c00350ad18b4bdf61",
+    "hexName": "47414441",
+    "fullName": "GADA",
+    "ticker": "GADA",
+    "decimals": 6
+  },
+  {
+    "policyId": "efa0e694d5915f52b00a0d01135efdb85a0bdde7009bbcf68ea12a3d",
+    "hexName": "5456",
+    "fullName": "TV",
+    "ticker": "TV",
+    "decimals": 6
+  },
+  {
+    "policyId": "8db269c3ec630e06ae29f74bc39edd1f87c819f1056206e879a1cd61",
+    "hexName": "5368656e4d6963726f555344",
+    "fullName": "SHEN",
+    "ticker": "SHEN",
+    "decimals": 6
+  },
+  {
+    "policyId": "8db269c3ec630e06ae29f74bc39edd1f87c819f1056206e879a1cd61",
+    "hexName": "446a65644d6963726f555344",
+    "fullName": "DJED",
+    "ticker": "DJED",
+    "decimals": 6
+  },
+  {
+    "policyId": "285b65ae63d4fad36321384ec61edfd5187b8194fff89b5abe9876da",
+    "hexName": "414e47454c53",
+    "fullName": "ANGELS",
+    "ticker": "ANGELS",
+    "decimals": 6
+  },
+  {
+    "policyId": "8d467ddd6da7da08392adc33300944861e1ac91680e369a68a599c78",
+    "hexName": "42534b494c4c",
+    "fullName": "BSKILL",
+    "ticker": "BSKILL",
+    "decimals": 6
+  },
+  {
+    "policyId": "a8a1dccea2e378081f2d500d98d022dd3c0bd77afd9dbc7b55a9d21b",
+    "hexName": "63544f5349",
+    "fullName": "cTOSI",
+    "ticker": "cTOSI",
+    "decimals": 0
+  },
+  {
+    "policyId": "0872530ffcdc067983d5ad088a552706ce6efc123694a6c7f39c7cd1",
+    "hexName": "43617264616e6f506f74696f6e7330303031",
+    "fullName": "CardanoPotions0001",
+    "ticker": "CardanoPotions0001",
+    "decimals": 0
+  },
+  {
+    "policyId": "fc11a9ef431f81b837736be5f53e4da29b9469c983d07f321262ce61",
+    "hexName": "4652454e",
+    "fullName": "FREN",
+    "ticker": "FREN",
+    "decimals": 0
+  },
+  {
+    "policyId": "29d222ce763455e3d7a09a665ce554f00ac89d2e99a1a83d267170c6",
+    "hexName": "4d494e74",
+    "fullName": "MINt",
+    "ticker": "MINt",
+    "decimals": 6
+  },
+  {
+    "policyId": "d030b626219d81673bd32932d2245e0c71ae5193281f971022b23a78",
+    "hexName": "436172646f67656f",
+    "fullName": "CDOG",
+    "ticker": "CDOG",
+    "decimals": 0
+  },
+  {
+    "policyId": "b6a7467ea1deb012808ef4e87b5ff371e85f7142d7b356a40d9b42a0",
+    "hexName": "436f726e75636f70696173205b76696120436861696e506f72742e696f5d",
+    "fullName": "COPI",
+    "ticker": "COPI",
+    "decimals": 6
+  },
+  {
+    "policyId": "493136618a39dcefb89ff573061f715ee32e88092d0299c54e3a3773",
+    "hexName": "56595241",
+    "fullName": "VYRA",
+    "ticker": "VYRA",
+    "decimals": 0
+  },
+  {
+    "policyId": "c5609c4800c05e82c4219ccf14c7fdf5212e11f83dbbb57ac716e98e",
+    "hexName": "666c756666",
+    "fullName": "fluff",
+    "ticker": "fluff",
+    "decimals": 0
+  },
+  {
+    "policyId": "437d6682fd33e6d26ff6437ef5fc2f9655d3c3b33637fb69dbd767be",
+    "hexName": "42524e44",
+    "fullName": "BRND",
+    "ticker": "BRND",
+    "decimals": 0
+  },
+  {
+    "policyId": "5acc52d5696e52345aec108468050d9d743eb21d6e41305bbc23a27b",
+    "hexName": "4154484f4d",
+    "fullName": "ATH",
+    "ticker": "ATH",
+    "decimals": 0
+  },
+  {
+    "policyId": "4f771973824f79fff176fe5cc0f29f5f5331a4692e5aa9a0bd0cdde6",
+    "hexName": "415058",
+    "fullName": "APX",
+    "ticker": "APX",
+    "decimals": 0
+  },
+  {
+    "policyId": "",
+    "hexName": "",
+    "fullName": "ADA",
+    "ticker": "ADA",
+    "decimals": 6
+  },
+  {
+    "policyId": "18309c5270652daa021173bb7bf132508f561ed2568224b0653d4320",
+    "hexName": "43617264616e6f506f74696f6e7330303035",
+    "fullName": "CardanoPotions0005",
+    "ticker": "CardanoPotions0005",
+    "decimals": 0
+  },
+  {
+    "policyId": "47959e79846b8bdcacb91f586408d97e2dff44f31a04f03902cba818",
+    "hexName": "5357454554",
+    "fullName": "SWEET",
+    "ticker": "SWEET",
+    "decimals": 0
+  },
+  {
+    "policyId": "533bb94a8850ee3ccbe483106489399112b74c905342cb1792a797a0",
+    "hexName": "494e4459",
+    "fullName": "INDY",
+    "ticker": "INDY",
+    "decimals": 6
+  },
+  {
+    "policyId": "a91173a8736b4fac401bebcc26fd1a878715b8c0a1cda16d17fb0a3a",
+    "hexName": "4e495849",
+    "fullName": "NIXI",
+    "ticker": "NIXI",
+    "decimals": 6
+  },
+  {
+    "policyId": "98dc68b04026544619a251bc01aad2075d28433524ac36cbc75599a1",
+    "hexName": "6d696c6c69686f736b",
+    "fullName": "mHOSK",
+    "ticker": "mHOSK",
+    "decimals": 0
+  },
+  {
+    "policyId": "e6d95b0f0abc2fdb8b4aec85754e7637377e24e29fff7b6aefe5383e",
+    "hexName": "43617264616e6f506f74696f6e7330303032",
+    "fullName": "CardanoPotions0002",
+    "ticker": "CardanoPotions0002",
+    "decimals": 0
+  },
+  {
+    "policyId": "2d587111358801114f04df83dc0015de0a740b462b75cce5170fc935",
+    "hexName": "434749",
+    "fullName": "CGI",
+    "ticker": "CGI",
+    "decimals": 6
+  },
+  {
+    "policyId": "3ad549db675f4c52f2f3b5a84d8c4349d17982d39ec5be0063f74de0",
+    "hexName": "4d55534943",
+    "fullName": "MUSIC",
+    "ticker": "MUSIC",
+    "decimals": 0
+  },
+  {
+    "policyId": "804f5544c1962a40546827cab750a88404dc7108c0f588b72964754f",
+    "hexName": "56594649",
+    "fullName": "VYFI",
+    "ticker": "VYFI",
+    "decimals": 6
+  },
+  {
+    "policyId": "6394b7c94d47d97761ca8007e3498eef419cddfbea088d1eda20bd12",
+    "hexName": "524f424f546f6b656e524f424f",
+    "fullName": "ROBO",
+    "ticker": "ROBO",
+    "decimals": 0
+  },
+  {
+    "policyId": "ea2d23f1fa631b414252824c153f2d6ba833506477a929770a4dd9c2",
+    "hexName": "4d414442554c",
+    "fullName": "MADBL",
+    "ticker": "MADBL",
+    "decimals": 0
+  },
+  {
+    "policyId": "ce5b9e0f8a88255b65f2e4d065c6e716e9fa9a8a86dfb86423dd1ac0",
+    "hexName": "44494e47",
+    "fullName": "DING",
+    "ticker": "DING",
+    "decimals": 6
+  },
+  {
+    "policyId": "60a91bfe48ee416f26db9e000d39dcd1c0be95ec7286b62a309f538f",
+    "hexName": "50554e54",
+    "fullName": "$PUNT",
+    "ticker": "$PUNT",
+    "decimals": 0
+  },
+  {
+    "policyId": "c0ee29a85b13209423b10447d3c2e6a50641a15c57770e27cb9d5073",
+    "hexName": "57696e67526964657273",
+    "fullName": "WRT",
+    "ticker": "WRT",
+    "decimals": 6
+  },
+  {
+    "policyId": "6f46e1304b16d884c85c62fb0eef35028facdc41aaa0fd319a152ed6",
+    "hexName": "4d434f53",
+    "fullName": "MCOS",
+    "ticker": "MCOS",
+    "decimals": 6
+  },
+  {
+    "policyId": "722c45e8ba2a3c399cf09949abe74546ecb75defb8206914085dc28e",
+    "hexName": "434458",
+    "fullName": "CDX",
+    "ticker": "CDX",
+    "decimals": 0
+  },
+  {
+    "policyId": "048ee598172481f98d613fc9fb6a03fd6ec3edccb75f8e4afc993b66",
+    "hexName": "45584f",
+    "fullName": "EXO",
+    "ticker": "EXO",
+    "decimals": 0
+  },
+  {
+    "policyId": "420000029ad9527271b1b1e3c27ee065c18df70a4a4cfc3093a41a44",
+    "hexName": "41584f",
+    "fullName": "AXO",
+    "ticker": "AXO",
+    "decimals": 9
+  },
+  {
+    "policyId": "02f74e4bd8fbf86339e55569e710886b04208a6005338bf2089187bf",
+    "hexName": "445643",
+    "fullName": "DVC",
+    "ticker": "DVC",
+    "decimals": 0
+  },
+  {
+    "policyId": "0c002b51df1a54194819c0990f52d14682bbb3e93a58052e7c81f71c",
+    "hexName": "42554b454c45",
+    "fullName": "BUKELE",
+    "ticker": "BUKELE",
+    "decimals": 0
+  },
+  {
+    "policyId": "cd5b9dd91319edbb19477ad00cbef673a221e70a17ef043951fc6786",
+    "hexName": "52656465656d61626c65",
+    "fullName": "RUSD",
+    "ticker": "RUSD",
+    "decimals": 4
+  },
+  {
+    "policyId": "300ec0d82a79acdc0616fdc0ef615e7deeddb03275e834685e9ee8a6",
+    "hexName": "5854",
+    "fullName": "XT",
+    "ticker": "XT",
+    "decimals": 0
+  },
+  {
+    "policyId": "152756a3bdb4cd3f1357c24d0486310f5edf399f1581a63bd730597c",
+    "hexName": "4d656f7743686f77",
+    "fullName": "MEOW",
+    "ticker": "MEOW",
+    "decimals": 4
+  },
+  {
+    "policyId": "9abf0afd2f236a19f2842d502d0450cbcd9c79f123a9708f96fd9b96",
+    "hexName": "454e4353",
+    "fullName": "ENCS",
+    "ticker": "ENCS",
+    "decimals": 6
+  },
+  {
+    "policyId": "240fb00eff73acc51c09e81dae6628c4bedb9964151d45e3faed874f",
+    "hexName": "434c4157",
+    "fullName": "$CLAW",
+    "ticker": "$CLAW",
+    "decimals": 0
+  },
+  {
+    "policyId": "357e02258d623e48a8e74f7f311cd1ba0b801fbc28dd099859a43985",
+    "hexName": "4a554b45",
+    "fullName": "JUKE",
+    "ticker": "JUKE",
+    "decimals": 6
+  },
+  {
+    "policyId": "24e9fd124b29e9c079c87c1ba4fb576edc78a8f40d1fed4171e17862",
+    "hexName": "43617264616e6f506f74696f6e7330303130",
+    "fullName": "CardanoPotions0010",
+    "ticker": "CardanoPotions0010",
+    "decimals": 0
+  },
+  {
+    "policyId": "ffb1abe9fe93ee9f13874403a3d4f8addaa65fbf22d5d7f41c087d8e",
+    "hexName": "4d5554414e54",
+    "fullName": "MUTANT",
+    "ticker": "MUTANT",
+    "decimals": 0
+  },
+  {
+    "policyId": "b316f8f668aca7359ecc6073475c0c8106239bf87e05a3a1bd569764",
+    "hexName": "7856594649",
+    "fullName": "xVYFI",
+    "ticker": "xVYFI",
+    "decimals": 6
+  },
+  {
+    "policyId": "96abe9a17b65c2133ed7e11864338e965efc418c0961ceecfac16172",
+    "hexName": "59455449",
+    "fullName": "YETI",
+    "ticker": "YETI",
+    "decimals": 6
+  },
+  {
+    "policyId": "d200938f57415d8eda17c4d9296e383ede7ce9f4bef1bb7ad038fc77",
+    "hexName": "43617264616e6f506f74696f6e7330303034",
+    "fullName": "CardanoPotions0004",
+    "ticker": "CardanoPotions0004",
+    "decimals": 0
+  },
+  {
+    "policyId": "f28f457472e539dc75e1598a2beddf49ce5a717998c708f05f5de610",
+    "hexName": "44454653",
+    "fullName": "DEFS",
+    "ticker": "DEFS",
+    "decimals": 0
+  },
+  {
+    "policyId": "6acb7c816f839148e2140427b181662380e3074616cbcfb0e644df9a",
+    "hexName": "634d455441",
+    "fullName": "cMETA",
+    "ticker": "cMETA",
+    "decimals": 0
+  },
+  {
+    "policyId": "a90d1702625ee4ebcee3b3649708cbcbb163f50db9663308acc9650e",
+    "hexName": "4d414e45",
+    "fullName": "MANE",
+    "ticker": "MANE",
+    "decimals": 6
+  },
+  {
+    "policyId": "1e54cf3b5832978582ac3baade392fa09a52dbd588dae1a403c4d72c",
+    "hexName": "52554d41484b495441",
+    "fullName": "RK",
+    "ticker": "RK",
+    "decimals": 0
+  },
+  {
+    "policyId": "d93a0f11841fdafeec97680d4ce0a49baec931c198c95971e2f3cbf2",
+    "hexName": "53637265616d696e27204d65746120546f6b656e73",
+    "fullName": "$SM",
+    "ticker": "$SM",
+    "decimals": 0
+  },
+  {
+    "policyId": "5d16cc1a177b5d9ba9cfa9793b07e60f1fb70fea1f8aef064415d114",
+    "hexName": "494147",
+    "fullName": "IAG",
+    "ticker": "IAG",
+    "decimals": 6
+  },
+  {
+    "policyId": "984394dcc0b08ea12d72b8833292e3c3197d7a8ac89aad61d2f5aa9e",
+    "hexName": "45415254485f746f6b656e",
+    "fullName": "EARTH",
+    "ticker": "EARTH",
+    "decimals": 6
+  },
+  {
+    "policyId": "be10bf4c0caa83fb7c75fb0fcf981d439f7731f8c81b12a775b3593d",
+    "hexName": "4e45465459",
+    "fullName": "NEFTY",
+    "ticker": "NEFTY",
+    "decimals": 0
+  },
+  {
+    "policyId": "5d8b06700f167fc112d0e36f64cffc4fbc559f3dd22462b5b14f308d",
+    "hexName": "43617264616e6f506f74696f6e7330303037",
+    "fullName": "CardanoPotions0007",
+    "ticker": "CardanoPotions0007",
+    "decimals": 0
+  },
+  {
+    "policyId": "160a880d9fc45380737cb7e57ff859763230aab28b3ef6a84007bfcc",
+    "hexName": "4d495241",
+    "fullName": "MIRA",
+    "ticker": "MIRA",
+    "decimals": 2
+  },
+  {
+    "policyId": "7914fae20eb2903ed6fd5021a415c1bd2626b64a2d86a304cb40ff5e",
+    "hexName": "4c494649",
+    "fullName": "LIFI",
+    "ticker": "LIFI",
+    "decimals": 6
+  },
+  {
+    "policyId": "afbe91c0b44b3040e360057bf8354ead8c49c4979ae6ab7c4fbdc9eb",
+    "hexName": "4d494c4b7632",
+    "fullName": "MILK",
+    "ticker": "MILK",
+    "decimals": 6
+  },
+  {
+    "policyId": "2441ab3351c3b80213a98f4e09ddcf7dabe4879c3c94cc4e7205cb63",
+    "hexName": "46495245",
+    "fullName": "FIRE",
+    "ticker": "FIRE",
+    "decimals": 0
+  },
+  {
+    "policyId": "8c694462d80c490adcec738e53840c5eafa0f63f70d2f9303c8ab6c7",
+    "hexName": "4d48454c4c",
+    "fullName": "MHELL",
+    "ticker": "MHELL",
+    "decimals": 0
+  },
+  {
+    "policyId": "0fdaa1b8699080ed281faec8dfae54531d07f37fe9a4bdd8f0733e2e",
+    "hexName": "44414e4345",
+    "fullName": "DANCE",
+    "ticker": "DANCE",
+    "decimals": 0
+  },
+  {
+    "policyId": "cdaf0ae5c4cc63b2d4fbf249d4cc3d9f0cb636084a1a461e2a1af38f",
+    "hexName": "4355534454",
+    "fullName": "CUSDT",
+    "ticker": "CUSDT",
+    "decimals": 6
+  },
+  {
+    "policyId": "02a4e5d69c39dc69ca5673836545743f425563965af06fe002bdd790",
+    "hexName": "43455446",
+    "fullName": "CETF",
+    "ticker": "CETF",
+    "decimals": 4
+  },
+  {
+    "policyId": "6954264b15bc92d6d592febeac84f14645e1ed46ca5ebb9acdb5c15f",
+    "hexName": "5354524950",
+    "fullName": "STRIP",
+    "ticker": "STRIP",
+    "decimals": 3
+  },
+  {
+    "policyId": "5445cf38c26abd1a03d4e8405386fab825ea75e5a7b05f9102116ea6",
+    "hexName": "4d4e54",
+    "fullName": "MNT",
+    "ticker": "MNT",
+    "decimals": 2
+  },
+  {
+    "policyId": "25c5de5f5b286073c593edfd77b48abc7a48e5a4f3d4cd9d428ff935",
+    "hexName": "455448",
+    "fullName": "ETH",
+    "ticker": "ETH",
+    "decimals": 8
+  },
+  {
+    "policyId": "b9939a9b1a3b21098114cf8c0d21d1f5db7313f59592e78d1d4ccdc3",
+    "hexName": "4d414348",
+    "fullName": "MACH",
+    "ticker": "MACH",
+    "decimals": 0
+  },
+  {
+    "policyId": "6606d13506cae249eb6df414832b8dda5f806cb9373713141c2f253f",
+    "hexName": "4d6973734d61727332303936",
+    "fullName": "MissMars2096",
+    "ticker": "MissMars2096",
+    "decimals": 0
+  },
+  {
+    "policyId": "2d420236ffaada336c21e3f4520b799f6e246d8618f2fc89a4907da6",
+    "hexName": "4564756c6164646572546f6b656e",
+    "fullName": "ELADR",
+    "ticker": "ELADR",
+    "decimals": 6
+  },
+  {
+    "policyId": "a1ce0414d79b040f986f3bcd187a7563fd26662390dece6b12262b52",
+    "hexName": "464c45534820544f4b454e",
+    "fullName": "FLEsH",
+    "ticker": "FLEsH",
+    "decimals": 1
+  },
+  {
+    "policyId": "57acbba83498d28b684539000e64680e1e56c5b6e4443c82a0dfff26",
+    "hexName": "564d4f4d4f",
+    "fullName": "VMOMO",
+    "ticker": "VMOMO",
+    "decimals": 0
+  },
+  {
+    "policyId": "5612bee388219c1b76fd527ed0fa5aa1d28652838bcab4ee4ee63197",
+    "hexName": "446973636f696e",
+    "fullName": "DIS",
+    "ticker": "DIS",
+    "decimals": 8
+  },
+  {
+    "policyId": "da8c30857834c6ae7203935b89278c532b3995245295456f993e1d24",
+    "hexName": "4c51",
+    "fullName": "LQ",
+    "ticker": "LQ",
+    "decimals": 6
+  },
+  {
+    "policyId": "1f4b1b277c9c001c1522727506a2cfb401a0d0ade069b0241f16f07d",
+    "hexName": "4849",
+    "fullName": "HI",
+    "ticker": "HI",
+    "decimals": 0
+  },
+  {
+    "policyId": "b166a1047a8cd275bf0a50201ece3d4f0b4da300094ffcc668a6f408",
+    "hexName": "4b49545550",
+    "fullName": "KITUP",
+    "ticker": "KITUP",
+    "decimals": 0
+  },
+  {
+    "policyId": "969c1ee5ae22173fad229f0ef1b70f135ea524b4f7a6f00946f595ef",
+    "hexName": "425654",
+    "fullName": "BVT",
+    "ticker": "BVT",
+    "decimals": 0
+  },
+  {
+    "policyId": "32cc9c6c3456bc048d14a4a8e4ee3592e9664e8daac921a8ef52d92a",
+    "hexName": "4752415353",
+    "fullName": "GRASS",
+    "ticker": "GRASS",
+    "decimals": 6
+  },
+  {
+    "policyId": "0171c997b8853fde686763d93b36ab8e04ce947bb6aa09a9ee5c4401",
+    "hexName": "544f4b454e",
+    "fullName": "TOKEN",
+    "ticker": "TOKEN",
+    "decimals": 0
+  },
+  {
+    "policyId": "f555c46bad0731d080c9381d7fff6f82839946a66bd070d185e1ea2f",
+    "hexName": "42444f4745",
+    "fullName": "BDOGE",
+    "ticker": "BDOGE",
+    "decimals": 0
+  },
+  {
+    "policyId": "bf9354cba4ee83c5de05c72830c6430967a26a1656b06293541d23e1",
+    "hexName": "54414e47",
+    "fullName": "TANG",
+    "ticker": "TANG",
+    "decimals": 6
+  },
+  {
+    "policyId": "51a5e236c4de3af2b8020442e2a26f454fda3b04cb621c1294a0ef34",
+    "hexName": "424f4f4b",
+    "fullName": "STUFF",
+    "ticker": "STUFF",
+    "decimals": 6
+  },
+  {
+    "policyId": "6c8642400e8437f737eb86df0fc8a8437c760f48592b1ba8f5767e81",
+    "hexName": "456d706f7761",
+    "fullName": "EMP",
+    "ticker": "EMP",
+    "decimals": 6
+  },
+  {
+    "policyId": "1fa3c3e86c47e4f972ad7199bfb9e57b15ff8da8e921a7d0477b59ce",
+    "hexName": "426c6f62436f696e",
+    "fullName": "Blob",
+    "ticker": "Blob",
+    "decimals": 0
+  },
+  {
+    "policyId": "f6ac48c64aa7af16434d9f84e014d11fba38525b436acc338ff20b0d",
+    "hexName": "4d7463",
+    "fullName": "Mtc",
+    "ticker": "Mtc",
+    "decimals": 0
+  },
+  {
+    "policyId": "551f1b35abe2e5d917f43505154f3f12a956c52ec07e5134ca464265",
+    "hexName": "736166617269",
+    "fullName": "$SAFARI",
+    "ticker": "$SAFARI",
+    "decimals": 0
+  },
+  {
+    "policyId": "43b07d4037f0d75ee10f9863097463fc02ff3c0b8b705ae61d9c75bf",
+    "hexName": "4d796e746820546f6b656e",
+    "fullName": "MNT",
+    "ticker": "MNT",
+    "decimals": 6
+  },
+  {
+    "policyId": "65ab799f268884ac04f29760e72e07f5a01cba857af5410262744204",
+    "hexName": "636861726c7a3033333434",
+    "fullName": "charlz03344",
+    "ticker": "charlz03344",
+    "decimals": 0
+  },
+  {
+    "policyId": "6e3af9667763e915c9b3a901d3092625d515c2ad6d575eac92582aa8",
+    "hexName": "76d5a1581738921e32b3a5facb3e4cc230c010a2204be2864bb45948d27612e6",
+    "fullName": "DJED/ADA",
+    "ticker": "DJED/ADA",
+    "decimals": 0
+  },
+  {
+    "policyId": "c4c00fbd8fa227442a5e7cdecde33b24588494d05a2c50fda8938c6d",
+    "hexName": "4b49445a",
+    "fullName": "KIDZ",
+    "ticker": "KIDZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "2afb448ef716bfbed1dcb676102194c3009bee5399e93b90def9db6a",
+    "hexName": "4249534f4e",
+    "fullName": "BISON",
+    "ticker": "BISON",
+    "decimals": 0
+  },
+  {
+    "policyId": "94cbb4fcbcaa2975779f273b263eb3b5f24a9951e446d6dc4c135864",
+    "hexName": "52455655",
+    "fullName": "REVU",
+    "ticker": "REVU",
+    "decimals": 8
+  },
+  {
+    "policyId": "462d81b809c4cbc9039a536a6139393d640e3f54c563c0404ef92a5f",
+    "hexName": "57415249",
+    "fullName": "WARI",
+    "ticker": "WARI",
+    "decimals": 6
+  },
+  {
+    "policyId": "6ac8ef33b510ec004fe11585f7c5a9f0c07f0c23428ab4f29c1d7d10",
+    "hexName": "4d454c44",
+    "fullName": "MELD",
+    "ticker": "MELD",
+    "decimals": 6
+  },
+  {
+    "policyId": "9a2ff23d533e7f8c009e2f51c49896aa28c066946b89d2ccd55ab847",
+    "hexName": "43524545505a",
+    "fullName": "CREEPZ",
+    "ticker": "CREEPZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "3f2880d10da4c8567ffc1f705b4b526c331ed2e875c63c4b68aff580",
+    "hexName": "4252454144",
+    "fullName": "Bread",
+    "ticker": "Bread",
+    "decimals": 0
+  },
+  {
+    "policyId": "9f25820766a135cf7d99e19aa6417fac58c354bcb1d99892c33064c7",
+    "hexName": "43617264616e6f506f74696f6e7330303036",
+    "fullName": "CardanoPotions0006",
+    "ticker": "CardanoPotions0006",
+    "decimals": 0
+  },
+  {
+    "policyId": "a3bbcab3c60de005248e10c8ef07b2ce0c1d8a5805c6214feeb4b6ce",
+    "hexName": "48414e445a",
+    "fullName": "HANDZ",
+    "ticker": "HANDZ",
+    "decimals": 0
+  },
+  {
+    "policyId": "98dc68b04026544619a251bc01aad2075d28433524ac36cbc75599a1",
+    "hexName": "6b696c6f686f736b",
+    "fullName": "kHOSK",
+    "ticker": "kHOSK",
+    "decimals": 0
+  },
+  {
+    "policyId": "782c158a98aed3aa676d9c85117525dcf3acc5506a30a8d87369fbcb",
+    "hexName": "4d6f6e6574",
+    "fullName": "MONET",
+    "ticker": "MONET",
+    "decimals": 6
+  },
+  {
+    "policyId": "6e3af9667763e915c9b3a901d3092625d515c2ad6d575eac92582aa8",
+    "hexName": "d2c8d7d47fb4046c68567e0f29bf0dce4e0a083cf4ce522ed741127dafa2ac59",
+    "fullName": "SHEN/ADA",
+    "ticker": "SHEN/ADA",
+    "decimals": 0
+  },
+  {
+    "policyId": "26737d4f7e75669b71490fbacc4521a7027ca2d70e0a4603097686d8",
+    "hexName": "24534543524554",
+    "fullName": "SECRET",
+    "ticker": "SECRET",
+    "decimals": 0
+  },
+  {
+    "policyId": "a1c94e56e4b24945338f2779e33b02e52fdd30d5f279c6131cc43c7c",
+    "hexName": "42555a5a",
+    "fullName": "BUZZ",
+    "ticker": "BUZZ",
+    "decimals": 2
+  },
+  {
+    "policyId": "f0ff48bbb7bbe9d59a40f1ce90e9e9d0ff5002ec48f232b49ca0fb9a",
+    "hexName": "6d7565736c69737761707632",
+    "fullName": "muesliswapv2",
+    "ticker": "muesliswapv2",
+    "decimals": 0
+  },
+  {
+    "policyId": "4af324c932f8e2d0feaf71bef7003ca562b030c0b1c8f0530415e6c4",
+    "hexName": "6f7074a45fd5f58e0f542a51e410b4a3209495da57a758451ec33fddafeb4a1e",
+    "fullName": "OPTADA1",
+    "ticker": "OPTADA1",
+    "decimals": 6
+  },
+  {
+    "policyId": "320e3da27c6373e4bc045d7332c734ac393917755eb6b7689ce35ddb",
+    "hexName": "50524f5054454341",
+    "fullName": "PTECA",
+    "ticker": "PTECA",
+    "decimals": 0
+  },
+  {
+    "policyId": "25c5de5f5b286073c593edfd77b48abc7a48e5a4f3d4cd9d428ff935",
+    "hexName": "55534454",
+    "fullName": "USDT",
+    "ticker": "USDT",
+    "decimals": 8
+  },
+  {
+    "policyId": "fed1c459a47cbff56bd7d29c2dde0de3e9bd15cee02b98622fce82f7",
+    "hexName": "43617264616e6f436f70706572",
+    "fullName": "CD",
+    "ticker": "CD",
+    "decimals": 6
+  },
+  {
+    "policyId": "1a71dc14baa0b4fcfb34464adc6656d0e562571e2ac1bc990c9ce5f6",
+    "hexName": "574f4c46",
+    "fullName": "WOLF",
+    "ticker": "WOLF",
+    "decimals": 0
+  },
+  {
+    "policyId": "f66d78b4a3cb3d37afa0ec36461e51ecbde00f26c8f0a68f94b69880",
+    "hexName": "69425443",
+    "fullName": "iBTC",
+    "ticker": "iBTC",
+    "decimals": 6
+  },
+  {
+    "policyId": "b01cd2dffad5d6e840d7420b3e09154a96c796bbd9a57bb3455ba642",
+    "hexName": "434f42",
+    "fullName": "COB",
+    "ticker": "COB",
+    "decimals": 0
+  },
+  {
+    "policyId": "49fe136eb6a7f438fec3a2b1fedbc29ce2723c5248530b3b1f5fbde7",
+    "hexName": "4b49434b",
+    "fullName": "KICK",
+    "ticker": "KICK",
+    "decimals": 0
+  },
+  {
+    "policyId": "a561173b1e3f145933f94351f79e16b6f90dc8d549ac6f26867233c0",
+    "hexName": "4144415045",
+    "fullName": "ADAPE",
+    "ticker": "ADAPE",
+    "decimals": 0
+  },
+  {
+    "policyId": "8cfd6893f5f6c1cc954cec1a0a1460841b74da6e7803820dde62bb78",
+    "hexName": "524a56",
+    "fullName": "RJV",
+    "ticker": "RJV",
+    "decimals": 6
+  },
+  {
+    "policyId": "d6167623e9553045821690258fc5d60313ba79112dc1eaaaf371b04f",
+    "hexName": "4e6f744576656e546f6b656e",
+    "fullName": "NET",
+    "ticker": "NET",
+    "decimals": 6
+  },
+  {
+    "policyId": "65bdf33f8f7fd4debeb2ad659473749eb4eac177e06650bb75a8fe50",
+    "hexName": "4d69746872546f6b656e",
+    "fullName": "MITHR",
+    "ticker": "MITHR",
+    "decimals": 0
+  },
+  {
+    "policyId": "d0af056c509b6b1133cd83a750b7245e561169281fde3df1cb6e2d96",
+    "hexName": "506f6f6c5065656b436f696e",
+    "fullName": "PPC",
+    "ticker": "PPC",
+    "decimals": 0
+  },
+  {
+    "policyId": "58b9f55e6ea9828dea7a8d9f49420171c6360f99b5e6e86de5fdb644",
+    "hexName": "4170654e6174696f6e38323935",
+    "fullName": "ApeNation8295",
+    "ticker": "ApeNation8295",
+    "decimals": 0
+  },
+  {
+    "policyId": "9e975c76508686eb2d57985dbaea7e3843767a31b4dcf4e99e564683",
+    "hexName": "4d41595a",
+    "fullName": "MAYZ",
+    "ticker": "MAYZ",
+    "decimals": 6
+  },
+  {
+    "policyId": "7c76fc6c7496acb811ca913b3f9f1a3e4a875d7d1f1b11b9676840ce",
+    "hexName": "4a554445",
+    "fullName": "The Token of St Jude",
+    "ticker": "The Token of St Jude",
+    "decimals": 0
+  },
+  {
+    "policyId": "e52964af4fffdb54504859875b1827b60ba679074996156461143dc1",
+    "hexName": "4f5054494d",
+    "fullName": "OPTIM",
+    "ticker": "OPTIM",
+    "decimals": 6
+  },
+  {
+    "policyId": "b0446f1c9105f0cc5bb6bd092f5c3e523e13f8a999b31c870298fa40",
+    "hexName": "51554944",
+    "fullName": "QUID",
+    "ticker": "QUID",
+    "decimals": 0
+  },
+  {
+    "policyId": "0c3b14ddb319c5a50bfd93e69d0706d1527e2b2169744665a1c534d0",
+    "hexName": "635049474759",
+    "fullName": "VixFi",
+    "ticker": "VixFi",
+    "decimals": 2
+  },
+  {
+    "policyId": "fb0e9a083ac66c814548002cbdfc54557e064e4cdf5c6675e72d22b4",
+    "hexName": "4445414e",
+    "fullName": "DEAN",
+    "ticker": "DEAN",
+    "decimals": 0
+  },
+  {
+    "policyId": "89267e9a35153a419e1b8ffa23e511ac39ea4e3b00452e9d500f2982",
+    "hexName": "436176616c6965724b696e67436861726c6573",
+    "fullName": "Charly",
+    "ticker": "Charly",
+    "decimals": 0
+  },
+  {
+    "policyId": "d894897411707efa755a76deb66d26dfd50593f2e70863e1661e98a0",
+    "hexName": "7370616365636f696e73",
+    "fullName": "SPACE",
+    "ticker": "SPACE",
+    "decimals": 0
+  },
+  {
+    "policyId": "c45cbb33572ab2e9ca296bdf426e0a97187a00ecc8287fa1c3ca2e5d",
+    "hexName": "7261746b696e67",
+    "fullName": "RK",
+    "ticker": "RK",
+    "decimals": 0
+  },
+  {
+    "policyId": "dca54ecf37b0e3af2fdfd336e1d21fadcc45b3261b0f73a095631dfe",
+    "hexName": "444f4558",
+    "fullName": "DOEX",
+    "ticker": "DOEX",
+    "decimals": 0
+  },
+  {
+    "policyId": "e5602dec7811774ee560859292c20c3694a19d5daf72ccd94fc1a18d",
+    "hexName": "414743",
+    "fullName": "AGC",
+    "ticker": "AGC",
+    "decimals": 6
+  },
+  {
+    "policyId": "1d7f33bd23d85e1a25d87d86fac4f199c3197a2f7afeb662a0f34e1e",
+    "hexName": "776f726c646d6f62696c65746f6b656e",
+    "fullName": "WMT",
+    "ticker": "WMT",
+    "decimals": 6
+  },
+  {
+    "policyId": "c7dcfa416c127f630b263c7e0fe0564430cfa9c56bba43e1a37c6915",
+    "hexName": "474f4b4559",
+    "fullName": "GOKEYv1",
+    "ticker": "GOKEYv1",
+    "decimals": 0
+  },
+  {
+    "policyId": "c898c986b97e7ac5b33e999bc11b054a9987f48ec4459f8c1ea0c32b",
+    "hexName": "435245414d504945",
+    "fullName": "CREAMPIE",
+    "ticker": "CREAMPIE",
+    "decimals": 0
+  },
+  {
+    "policyId": "b788fbee71a32d2efc5ee7d151f3917d99160f78fb1e41a1bbf80d8f",
+    "hexName": "4c454146544f4b454e",
+    "fullName": "$LEAF",
+    "ticker": "$LEAF",
+    "decimals": 0
+  },
+  {
+    "policyId": "682fe60c9918842b3323c43b5144bc3d52a23bd2fb81345560d73f63",
+    "hexName": "4e45574d",
+    "fullName": "NEWM",
+    "ticker": "NEWM",
+    "decimals": 6
+  },
+  {
+    "policyId": "16fdd33c86af604e837ae57d79d5f0f1156406086db5f16afb3fcf51",
+    "hexName": "44474f4c44",
+    "fullName": "DGOLD",
+    "ticker": "DGOLD",
+    "decimals": 7
+  },
+  {
+    "policyId": "7507734918533b3b896241b4704f3d4ce805256b01da6fcede430436",
+    "hexName": "42616279534e454b",
+    "fullName": "BabySNEK",
+    "ticker": "BabySNEK",
+    "decimals": 0
+  },
+  {
+    "policyId": "0c442180dd6163682d8e03b271caefb4944a24412bdd07adafb04ccb",
+    "hexName": "50494e41434f4c414441",
+    "fullName": "Pina",
+    "ticker": "Pina",
+    "decimals": 0
+  },
+  {
+    "policyId": "249b7c4b9522b11489b41df89c8ce2244dea99d33abff8e8a1a86246",
+    "hexName": "536c6f7474657279",
+    "fullName": "Slottery",
+    "ticker": "Slottery",
+    "decimals": 0
+  },
+  {
+    "policyId": "7536b72f0d1f84c7935fc3b4471032ad4ca33b92974d0a3fe7e03e51",
+    "hexName": "4d494e474f",
+    "fullName": "MINGO",
+    "ticker": "MINGO",
+    "decimals": 0
+  },
+  {
+    "policyId": "ee0633e757fdd1423220f43688c74678abde1cead7ce265ba8a24fcd",
+    "hexName": "43424c50",
+    "fullName": "CBLP",
+    "ticker": "CBLP",
+    "decimals": 6
+  },
+  {
+    "policyId": "279f842c33eed9054b9e3c70cd6a3b32298259c24b78b895cb41d91a",
+    "hexName": "54554e41",
+    "fullName": "TUNA",
+    "ticker": "TUNA",
+    "decimals": 8
+  }
+]
