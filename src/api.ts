@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { getAssetPrice , calculateAmountOut , getPendingOrders, createSwapTx } from './minswap.js';
+import { getAssetPrice , calculateAmountOut , getPendingOrders, createSwapTx , calculateAmountIn} from './minswap.js';
 import { Asset } from '@minswap/sdk';
 import { Lucid, Address, Blockfrost ,Network, Tx, Script} from 'lucid-cardano';
 import BigNumber from 'bignumber.js';
@@ -73,6 +73,16 @@ const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBToken
     if (typeof amountOut !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
         return res.status(400).json({ error: 'Invalid query parameters' });
     }
+
+    calculateAmountIn(assetA, assetB, BigInt(amountOut))
+        .then((amountIn) => {
+            res.json({ amountIn: amountIn[0].toString() , priceImpact: amountIn[1].toString() });
+
+        })
+        .catch((error) => {
+            res.status(400).json({ error: error.message });
+        });
+
     
     
     
@@ -102,7 +112,7 @@ app.get('/api/calculateOut', (req: Request, res: Response) => {
 
     calculateAmountOut(assetA, assetB, BigInt(amountIn))
         .then((amountOut) => {
-            res.json({ amountOut: amountOut.toString() });
+            res.json({ amountOut: amountOut[0].toString() , priceImpact: amountOut[1].toString() });
         })
         .catch((error) => {
             res.status(400).json({ error: error.message });

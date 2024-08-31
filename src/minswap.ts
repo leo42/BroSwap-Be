@@ -125,7 +125,7 @@ async function getV2PoolByPair(assetA: Asset, assetB: Asset): Promise<PoolV2.Sta
   return pool || null;
 }
 
-export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn: bigint): Promise<bigint> {
+export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn: bigint): Promise<[bigint, number]> {
   const pool = await getV2PoolByPair(assetA, assetB);
   if (!pool) {
     throw new Error("Pool not found");
@@ -139,15 +139,22 @@ export async function calculateAmountOut(assetA: Asset, assetB: Asset, amountIn:
   
   console.log('calculateAmountOut', assetAId, assetBId, pool.reserveA, pool.reserveB, reserveIn, reserveOut, amountIn, pool.feeA[0], pool.assetA, pool.assetB);
 
-  return DexV2Calculation.calculateAmountOut({
+  const amountOut = DexV2Calculation.calculateAmountOut({
     reserveIn: reserveIn,
     reserveOut: reserveOut,
     amountIn: amountIn,
     tradingFeeNumerator: pool.feeA[0],
   });
+
+  // Calculate price impact
+  const spotPrice = Number(reserveOut) / Number(reserveIn);
+  const executionPrice = Number(amountOut) / Number(amountIn);
+  const priceImpact = Math.abs((spotPrice - executionPrice) / spotPrice) * 100;
+
+  return [ amountOut, priceImpact ];
 }
 
-export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut: bigint): Promise<bigint> {
+export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut: bigint): Promise<[bigint, number]> {
   const pool = await getV2PoolByPair(assetA, assetB);
   if (!pool) {
     throw new Error("Pool not found");
@@ -159,13 +166,22 @@ export async function calculateAmountIn(assetA: Asset, assetB: Asset, amountOut:
   const reserveIn = assetAId === pool.assetA ? pool.reserveA : pool.reserveB;
   const reserveOut = assetBId === pool.assetB ? pool.reserveB : pool.reserveA;
 
-  return DexV2Calculation.calculateAmountIn({
+  const amountIn = DexV2Calculation.calculateAmountIn({
     reserveIn: reserveIn,
     reserveOut: reserveOut,
     amountOut: amountOut,
     tradingFeeNumerator: pool.feeA[0],
   });
+
+
+  const spotPrice = Number(reserveOut) / Number(reserveIn);
+  const executionPrice = Number(amountOut) / Number(amountIn);
+  const priceImpact = Math.abs((spotPrice - executionPrice) / spotPrice) * 100;
+
+  return [ amountIn, priceImpact ];
 }
+  
+
 
 export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigint, utxos: UTxO[], address: Address, slippage: BigNumber, composeTx: Tx | null = null): Promise<TxComplete> {
   const pool = await getV2PoolByPair(assetA, assetB);
@@ -176,7 +192,7 @@ export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigin
   const network = config.network.charAt(0).toUpperCase() + config.network.slice(1) as Network;
   const lucid = await Lucid.new(new Blockfrost(config.blockfrost.url, config.blockfrost.projectId), network);
   lucid.selectWalletFrom({address, utxos});
-  const amountOut = await calculateAmountOut(assetA, assetB, amountIn);
+  const [amountOut, priceImpact] = await calculateAmountOut(assetA, assetB, amountIn);
   const minimumAmountOut = Slippage.apply({ slippage, amount: amountOut, type: "down" });
   const typedUtxos = utxos.map(utxo => ({
     ...utxo,
