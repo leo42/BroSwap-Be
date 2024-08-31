@@ -73,7 +73,7 @@ export async function getPendingOrders(userAddress: string): Promise<OrderV2.Dat
 
 const api = new BlockfrostAdapter(
     {
-    networkId : 0,
+    networkId : config.network === 'mainnet' ? 1 : 0,
     blockFrost: new BlockFrostAPI({
       projectId: config.blockfrost.projectId,
       network: config.network as CardanoNetwork,
