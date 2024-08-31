@@ -1,7 +1,8 @@
 import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
 import { BlockfrostAdapter, DexV2Calculation, DexV2, OrderV2, Asset, NetworkId, PoolV2 } from "@minswap/sdk";
-import { Lucid, Address, UTxO, TxComplete, Data , Blockfrost, Tx} from "lucid-cardano";
+import { Lucid, Address, UTxO, TxComplete, Data , Blockfrost, Tx, Network} from "lucid-cardano";
 import BigNumber from "bignumber.js";
+type CardanoNetwork = 'mainnet' | 'preview' | 'preprod' | 'sanchonet';
 
 // load the config.json file    
 import config from '../config.json' assert { type: 'json' };
@@ -75,7 +76,7 @@ const api = new BlockfrostAdapter(
     networkId : 0,
     blockFrost: new BlockFrostAPI({
       projectId: config.blockfrost.projectId,
-      network: 'preprod',
+      network: config.network as CardanoNetwork,
     }),
   });
 
@@ -172,7 +173,8 @@ export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigin
     throw new Error("Pool not found");
   }
   const authorizationMethodType = composeTx ? OrderV2.AuthorizationMethodType.SPEND_SCRIPT : OrderV2.AuthorizationMethodType.SIGNATURE;
-  const lucid = await Lucid.new(new Blockfrost("https://cardano-preprod.blockfrost.io/api/v0", config.blockfrost.projectId), 'Preview');
+  const network = config.network.charAt(0).toUpperCase() + config.network.slice(1) as Network;
+  const lucid = await Lucid.new(new Blockfrost(config.blockfrost.url, config.blockfrost.projectId), network);
   lucid.selectWalletFrom({address, utxos});
   const amountOut = await calculateAmountOut(assetA, assetB, amountIn);
   const minimumAmountOut = Slippage.apply({ slippage, amount: amountOut, type: "down" });

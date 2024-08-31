@@ -149,7 +149,8 @@ app.post('/api/swap', async (req: Request, res: Response) => {
     let composeTx : Tx | undefined = undefined;
 
     if(script !== null){
-      const lucid = await Lucid.new(new Blockfrost( config.blockfrost.url, config.blockfrost.projectId), "Preprod");
+      const network = config.network.charAt(0).toUpperCase() + config.network.slice(1) as Network;
+      const lucid = await Lucid.new(new Blockfrost( config.blockfrost.url, config.blockfrost.projectId), network );
       const completeScript = {type : "Native", script: script} as Script
       composeTx  = lucid.newTx()
       
