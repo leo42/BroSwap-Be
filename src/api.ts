@@ -4,9 +4,9 @@ import { getAssetPrice , calculateAmountOut , getPendingOrders, createSwapTx , c
 import { Asset } from '@minswap/sdk';
 import { Lucid, Address, Blockfrost ,Network, Tx, Script} from 'lucid-cardano';
 import BigNumber from 'bignumber.js';
-import config from '../config.json' assert { type: 'json' };
 import path from 'path';
-import verifiedTokens from '../availableTokens.json' assert { type: 'json' };
+import config from '../config.json' with { type: 'json' };
+import verifiedTokens from '../availableTokens.json' with { type: 'json' };
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);

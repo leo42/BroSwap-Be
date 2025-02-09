@@ -5,7 +5,7 @@ import BigNumber from "bignumber.js";
 type CardanoNetwork = 'mainnet' | 'preview' | 'preprod' | 'sanchonet';
 
 // load the config.json file    
-import config from '../config.json' assert { type: 'json' };
+import config from '../config.json' with { type: 'json' };
 
 const ADA: Asset = {
   policyId: "",
@@ -81,7 +81,8 @@ const api = new BlockfrostAdapter(
   });
 
 export function test()  {
-  api.getAllV2Pools().then((pools) => {
+  api.getAllV2Pools().then((pools: any) => {
+    console.log(pools);
   });
 
 
@@ -199,6 +200,7 @@ export async function createSwapTx(assetA: Asset, assetB: Asset, amountIn: bigin
     assets: Object.fromEntries(
       Object.entries(utxo.assets).map(([key, value]) => [key, BigInt(value)])
     )
+
   }));
   
   try {
