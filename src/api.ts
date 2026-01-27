@@ -8,9 +8,149 @@ import path from 'path';
 import config from '../config.json' with { type: 'json' };
 import verifiedTokens from '../availableTokens.json' with { type: 'json' };
 import { fileURLToPath } from 'url';
+import cbor from 'cbor';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+/**
+ * Recursively normalizes a value to remove empty multiasset maps.
+ * Cardano values should be just coin (number) when there are no tokens,
+ * not a tuple [coin, multiasset] with empty multiasset.
+ */
+function normalizeValue(value: any): any {
+  // If value is an array [coin, multiasset], check if multiasset is empty
+  if (Array.isArray(value) && value.length === 2) {
+    const [coin, multiasset] = value;
+    
+    // Check if multiasset is empty
+    let isEmpty = false;
+    if (multiasset === null || multiasset === undefined) {
+      isEmpty = true;
+    } else if (multiasset instanceof Map) {
+      isEmpty = multiasset.size === 0;
+    } else if (typeof multiasset === 'object') {
+      isEmpty = Object.keys(multiasset).length === 0;
+    }
+    
+    // If empty, return just coin; otherwise return the tuple
+    if (isEmpty) {
+      return coin;
+    }
+  }
+  
+  return value;
+}
+
+/**
+ * Normalizes a Cardano transaction CBOR by removing empty multiasset maps from outputs.
+ * This fixes CBOR canonical encoding violations per CIP-21.
+ * @param txCborHex - Hex-encoded CBOR transaction
+ * @returns Normalized hex-encoded CBOR transaction
+ */
+function normalizeTransactionCbor(txCborHex: string): string {
+  try {
+    // Decode hex to buffer
+    const cborBuffer = Buffer.from(txCborHex, 'hex');
+    
+    // Decode CBOR to JavaScript object
+    const tx = cbor.decodeFirstSync(cborBuffer);
+    
+    // Transaction structure: [body, witness_set, auxiliary_data?, valid?]
+    // Body can be array or map depending on encoding
+    let body: any = null;
+    
+    if (Array.isArray(tx) && tx.length >= 2) {
+      body = tx[0];
+    } else if (tx && typeof tx === 'object' && 'body' in tx) {
+      body = tx.body;
+    }
+    
+    if (!body) {
+      return txCborHex;
+    }
+    
+    // Body structure: array [inputs, outputs, fee, ...] or map with 'outputs' key
+    let outputs: any[] | null = null;
+    
+    if (Array.isArray(body) && body.length >= 2) {
+      // Outputs are at index 1 in array format
+      outputs = body[1];
+    } else if (body instanceof Map) {
+      if (body.has(1)) {
+        outputs = body.get(1);
+      } else if (body.has('outputs')) {
+        outputs = body.get('outputs');
+      } else {
+        for (const [key, value] of body.entries()) {
+          if (key === 1 || (typeof key === 'string' && key.toLowerCase() === 'outputs')) {
+            outputs = value;
+            break;
+          }
+        }
+      }
+    } else if (body && typeof body === 'object' && 'outputs' in body) {
+      outputs = body.outputs;
+    } else if (body && typeof body === 'object') {
+      // Try to find outputs by iterating (for map structures)
+      for (const key in body) {
+        if (key === '1' || (typeof key === 'string' && key.toLowerCase() === 'outputs')) {
+          outputs = body[key];
+          break;
+        }
+      }
+    }
+    
+    if (!Array.isArray(outputs)) {
+      return txCborHex;
+    }
+    
+    // Normalize each output
+    for (const output of outputs) {
+      if (output && typeof output === 'object') {
+        // Output structure: [address, amount, datum?, script_ref?] or {address, amount, ...}
+        let amount: any = null;
+        
+        if (Array.isArray(output) && output.length >= 2) {
+          amount = output[1];
+          output[1] = normalizeValue(amount);
+        } else if (output instanceof Map) {
+          if (output.has(1)) {
+            output.set(1, normalizeValue(output.get(1)));
+          } else if (output.has('amount')) {
+            output.set('amount', normalizeValue(output.get('amount')));
+          } else {
+            for (const [key, value] of output.entries()) {
+              if (key === 1 || (typeof key === 'string' && key.toLowerCase() === 'amount')) {
+                output.set(key, normalizeValue(value));
+                break;
+              }
+            }
+          }
+        } else if (output && typeof output === 'object' && 'amount' in output) {
+          amount = output.amount;
+          output.amount = normalizeValue(amount);
+        } else if (output && typeof output === 'object') {
+          // Try to find amount by iterating (for map structures)
+          for (const key in output) {
+            if (key === '1' || (typeof key === 'string' && key.toLowerCase() === 'amount')) {
+              output[key] = normalizeValue(output[key]);
+              break;
+            }
+          }
+        }
+      }
+    }
+    
+    // Re-encode to CBOR and return as hex
+    const normalizedBuffer = cbor.encodeCanonical(tx);
+    return normalizedBuffer.toString('hex');
+  } catch (error) {
+    console.error('Error normalizing transaction CBOR:', error);
+    // Return original if normalization fails
+    return txCborHex;
+  }
+}
 
 const app = express();
 const port = 3000;
@@ -144,7 +284,7 @@ app.post('/api/swap', async (req: Request, res: Response) => {
         typeof assetInTokenName !== 'string' ||
         typeof assetOutPolicyId !== 'string' ||
         typeof assetOutTokenName !== 'string' ||
-        typeof script !== 'string' ||
+        (script !== null && typeof script !== 'string') ||
         !Array.isArray(utxos) ||
         typeof amountIn !== 'string' ||
         typeof slippage !== 'string' ||
@@ -195,8 +335,11 @@ app.post('/api/swap', async (req: Request, res: Response) => {
         // Convert the transaction to CBOR
         const txCbor = await tx.toString();
 
+        // Normalize the transaction to remove empty multiasset maps (CIP-21 compliance)
+        const normalizedTxCbor = normalizeTransactionCbor(txCbor);
+
         res.json({
-            txCbor: txCbor,
+            txCbor: normalizedTxCbor,
             message: "Swap transaction created successfully. Sign and submit this transaction to complete the swap."
         });
     } catch (error) {
