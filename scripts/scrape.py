@@ -61,7 +61,7 @@ def main():
 
             available_tokens.append({
                 "policyId": policy_id,
-                "HexName": hex_name,
+                "hexName": hex_name,
                 "fullName": full_name,
                 "Ticker": ticker,
                 "Decimals": decimals
