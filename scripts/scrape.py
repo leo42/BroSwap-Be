@@ -63,7 +63,7 @@ def main():
                 "policyId": policy_id,
                 "hexName": hex_name,
                 "fullName": full_name,
-                "Ticker": ticker,
+                "ticker": ticker,
                 "decimals": decimals
             })
 
