@@ -47,7 +47,7 @@ def main():
         print("No tokens fetched. Exiting.")
         return
 
-    os.makedirs(os.path.join("public", "assets"), exist_ok=True)
+    os.makedirs(os.path.join("..", "public", "assets"), exist_ok=True)
 
     available_tokens = []
     
@@ -71,7 +71,7 @@ def main():
 
     # Save the available tokens JSON file
     os.makedirs(os.path.dirname('../availableTokens.json'), exist_ok=True)
-    with open('src/availableTokens.json', 'w') as f:
+    with open('../availableTokens.json', 'w') as f:
         json.dump(available_tokens, f, indent=2)
 
     print(f"Token information has been saved to availableTokens.json. Total tokens: {len(available_tokens)}")
