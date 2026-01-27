@@ -7,9 +7,10 @@
   "scripts": {
     "build": "tsc && npm run copy-assets",
     "watch": "tsc -w",
-    "dev": "nodemon dist/index.js",
-    "start": "concurrently \"npm run watch\" \"npm run dev\"",
-    "copy-assets": "copyfiles -u 1 assets/**/* dist/assets"
+    "dev": "NODE_OPTIONS='--no-warnings' SODIUM_NATIVE=1 nodemon dist/index.js",
+    "start": "NODE_OPTIONS='--no-warnings' SODIUM_NATIVE=1 concurrently \"npm run watch\" \"npm run dev\"",
+    "copy-assets": "copyfiles -u 1 assets/**/* dist/assets",
+    "postinstall": "node scripts/fix-libsodium.js"
   },
   "keywords": [],
   "author": "",
@@ -20,14 +21,19 @@
     "@types/express": "^4.17.21",
     "@types/node": "^22.4.1",
     "concurrently": "^8.2.2",
+    "copyfiles": "^1.0.0",
     "nodemon": "^3.1.4",
-    "typescript": "^5.5.4",
-    "copyfiles": "^1.0.0"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@minswap/sdk": "^0.3.2",
+    "@blockfrost/blockfrost-js": "^6.1.0",
+    "@lucid-evolution/lucid": "^0.4.29",
+    "bignumber.js": "^9.1.2",
+    "cbor": "^8.1.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "libsodium-sumo": "^0.8.2",
+    "libsodium-wrappers-sumo": "^0.8.2",
     "lucid-cardano": "^0.10.7"
   }
 }

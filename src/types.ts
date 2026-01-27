@@ -1,6 +1,6 @@
-interface ScriptRequirement {
+export interface ScriptRequirement {
     code: number;
     value: string | number;
-  }
-
+}
+  
   

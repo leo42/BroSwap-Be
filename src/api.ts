@@ -1,12 +1,15 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { getAssetPrice , calculateAmountOut , getPendingOrders, createSwapTx , calculateAmountIn} from './minswap.js';
-import { Asset } from '@minswap/sdk';
-import { Lucid, Address, Blockfrost ,Network, Tx, Script} from 'lucid-cardano';
+import { getDexManager } from './services/dexManager.js';
+import type { Asset } from './dex/types.js';
+import type { UTxO } from './tx/txBuilder.js';
+import type { ScriptRequirement } from './types.js';
+import { Lucid, Address, Blockfrost, Network, Tx, Script } from 'lucid-cardano';
 import BigNumber from 'bignumber.js';
 import path from 'path';
-import config from '../config.json' with { type: 'json' };
-import verifiedTokens from '../availableTokens.json' with { type: 'json' };
+import { loadConfig, loadVerifiedTokens } from './utils/configLoader.js';
+const config = loadConfig();
+const verifiedTokens = loadVerifiedTokens();
 import { fileURLToPath } from 'url';
 import cbor from 'cbor';
 
@@ -174,62 +177,49 @@ app.get('/api', (req: Request, res: Response) => {
   res.json({ message: 'Welcome to the API!' });
 });
 
-app.get('/api/asset-price', (req: Request, res: Response) => {
+app.get('/api/asset-price', async (req: Request, res: Response) => {
     const { policyId, tokenName } = req.query;
   
     if (typeof policyId !== 'string' || typeof tokenName !== 'string') {
       return res.status(400).json({ error: 'Invalid query parameters' });
     }
   
-    getAssetPrice({ policyId, tokenName }).then((price) => {
-
-        res.json({ price : Number(price) });
-    }).catch((error) => {
-        res.status(400).json({ error: error.message });
-    });
+    try {
+        const dexManager = getDexManager();
+        const asset: Asset = { policyId, tokenName };
+        const price = await dexManager.getAssetPrice(asset);
+        res.json({ price: Number(price) });
+    } catch (error) {
+        res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
 });
 
-app.get('/api/calculateIn', (req: Request, res: Response) => {
+app.get('/api/calculateIn', async (req: Request, res: Response) => {
     const { amountOut, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
 
-// Replace missing policyId and tokenName with empty strings
-const safeAssetAPolicyId = assetAPolicyId || "";
-const safeAssetATokenName = assetATokenName || "";
-const safeAssetBPolicyId = assetBPolicyId || "";
-const safeAssetBTokenName = assetBTokenName || "";
+    // Replace missing policyId and tokenName with empty strings
+    const safeAssetAPolicyId = assetAPolicyId || "";
+    const safeAssetATokenName = assetATokenName || "";
+    const safeAssetBPolicyId = assetBPolicyId || "";
+    const safeAssetBTokenName = assetBTokenName || "";
 
-if(typeof amountOut !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
-    return res.status(400).json({ error: 'Invalid query parameters' });
-}
-
-
-if (typeof amountOut !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
-    return res.status(400).json({ error: 'Invalid query parameters' });
-  }
-
-const assetA: Asset = { policyId: safeAssetAPolicyId, tokenName: safeAssetATokenName };
-const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBTokenName };
-
-    if (typeof amountOut !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
+    if (typeof amountOut !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
         return res.status(400).json({ error: 'Invalid query parameters' });
     }
 
-    calculateAmountIn(assetA, assetB, BigInt(amountOut))
-        .then((amountIn) => {
-            res.json({ amountIn: amountIn[0].toString() , priceImpact: amountIn[1].toString() });
+    const assetA: Asset = { policyId: safeAssetAPolicyId, tokenName: safeAssetATokenName };
+    const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBTokenName };
 
-        })
-        .catch((error) => {
-            res.status(400).json({ error: error.message });
-        });
-
-    
-    
-    
+    try {
+        const dexManager = getDexManager();
+        const [amountIn, priceImpact] = await dexManager.calculateAmountIn(assetA, assetB, BigInt(amountOut));
+        res.json({ amountIn: amountIn.toString(), priceImpact: priceImpact.toString() });
+    } catch (error) {
+        res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
 }); 
 
-app.get('/api/calculateOut', (req: Request, res: Response) => {
-    
+app.get('/api/calculateOut', async (req: Request, res: Response) => {
     const { amountIn, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
 
     // Replace missing policyId and tokenName with empty strings
@@ -238,25 +228,20 @@ app.get('/api/calculateOut', (req: Request, res: Response) => {
     const safeAssetBPolicyId = assetBPolicyId || "";
     const safeAssetBTokenName = assetBTokenName || "";
     
-    if(typeof amountIn !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
+    if (typeof amountIn !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
         return res.status(400).json({ error: 'Invalid query parameters' });
     }
-
-  
-    if (typeof amountIn !== 'string' || typeof assetAPolicyId !== 'string' || typeof assetATokenName !== 'string' || typeof assetBPolicyId !== 'string' || typeof assetBTokenName !== 'string') {
-        return res.status(400).json({ error: 'Invalid query parameters' });
-      }
     
     const assetA: Asset = { policyId: safeAssetAPolicyId, tokenName: safeAssetATokenName };
     const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBTokenName };
 
-    calculateAmountOut(assetA, assetB, BigInt(amountIn))
-        .then((amountOut) => {
-            res.json({ amountOut: amountOut[0].toString() , priceImpact: amountOut[1].toString() });
-        })
-        .catch((error) => {
-            res.status(400).json({ error: error.message });
-        });
+    try {
+        const dexManager = getDexManager();
+        const [amountOut, priceImpact] = await dexManager.calculateAmountOut(assetA, assetB, BigInt(amountIn));
+        res.json({ amountOut: amountOut.toString(), priceImpact: priceImpact.toString() });
+    } catch (error) {
+        res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
 }); 
 
 app.get('/api/verified-tokens', async (req: Request, res: Response) => {
@@ -267,7 +252,7 @@ app.get('/api/verified-tokens', async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Invalid query parameters' });
     }
 
-    const filteredTokens = verifiedTokens.filter((token) => {
+    const filteredTokens = verifiedTokens.filter((token: any) => {
         return token.fullName.toLowerCase().includes(safeSearch.toLowerCase()) || token.ticker.toLowerCase().includes(safeSearch.toLowerCase());
     });
     const paginatedTokens = filteredTokens.slice((Number(page) - 1) * Number(pagination), Number(page) * Number(pagination));
@@ -277,7 +262,7 @@ app.get('/api/verified-tokens', async (req: Request, res: Response) => {
 
 
 app.post('/api/swap', async (req: Request, res: Response) => {
-    const { assetInPolicyId, assetInTokenName, assetOutPolicyId, utxos, assetOutTokenName, amountIn, slippage, address ,script = null , scriptRequirements = [] } = req.body;
+    const { assetInPolicyId, assetInTokenName, assetOutPolicyId, utxos, assetOutTokenName, amountIn, slippage, address, script = null, scriptRequirements = [] } = req.body;
 
     if (
         typeof assetInPolicyId !== 'string' ||
@@ -296,70 +281,62 @@ app.post('/api/swap', async (req: Request, res: Response) => {
     const assetIn: Asset = { policyId: assetInPolicyId, tokenName: assetInTokenName };
     const assetOut: Asset = { policyId: assetOutPolicyId, tokenName: assetOutTokenName };
 
-    let composeTx : Tx | undefined = undefined;
-
-    if(script !== null){
-      const network = config.network.charAt(0).toUpperCase() + config.network.slice(1) as Network;
-      const lucid = await Lucid.new(new Blockfrost( config.blockfrost.url, config.blockfrost.projectId), network );
-      const completeScript = {type : "Native", script: script} as Script
-      composeTx  = lucid.newTx()
-      
-      composeTx.attachSpendingValidator(completeScript)
-      if(composeTx !== undefined){
-      scriptRequirements.forEach((requirement: ScriptRequirement) => {
-              if(requirement.code === 1 && typeof requirement.value === 'string'){
-                composeTx!.addSignerKey(requirement.value)
-              }
-              if(requirement.code === 2 && typeof requirement.value === 'number'){
-                composeTx!.validTo(lucid.utils.slotToUnixTime(requirement.value))
-              }
-              if(requirement.code === 3 && typeof requirement.value === 'number'){
-                  console.log("validFrom",requirement.value, lucid.utils.slotToUnixTime(requirement.value));
-                  composeTx!.validFrom(lucid.utils.slotToUnixTime(requirement.value) )
-              }});
-            }
-    }
     try {
-
         const slippageBN = new BigNumber(slippage);
-        const tx = await createSwapTx(
+        const dexManager = getDexManager();
+
+        // Convert UTxOs from old Lucid format to new format
+        const convertedUtxos: UTxO[] = utxos.map((utxo: any) => ({
+            txHash: utxo.txHash || utxo.tx_hash,
+            outputIndex: utxo.outputIndex || utxo.output_index || utxo.index || 0,
+            address: utxo.address || address,
+            assets: typeof utxo.assets === 'object' 
+                ? Object.fromEntries(
+                    Object.entries(utxo.assets).map(([key, value]) => [
+                        key, 
+                        typeof value === 'bigint' ? value : BigInt(value as string | number)
+                    ])
+                  )
+                : {},
+            datum: utxo.datum,
+            datumHash: utxo.datumHash || utxo.datum_hash,
+            scriptRef: utxo.scriptRef || utxo.script_ref,
+        }));
+
+        // Convert script requirements format
+        const convertedScriptRequirements: ScriptRequirement[] = Array.isArray(scriptRequirements)
+            ? scriptRequirements.map((req: any) => ({
+                code: req.code,
+                value: req.value,
+            }))
+            : [];
+
+        // Build swap transaction using new system
+        const txCbor = await dexManager.createSwapTx(
             assetIn,
             assetOut,
             BigInt(amountIn),
-            utxos,
-            address as Address,
+            convertedUtxos,
+            address,
             slippageBN,
-            composeTx
+            script,
+            convertedScriptRequirements
         );
 
-        // Convert the transaction to CBOR
-        const txCbor = await tx.toString();
-
-        // Normalize the transaction to remove empty multiasset maps (CIP-21 compliance)
-        const normalizedTxCbor = normalizeTransactionCbor(txCbor);
-
         res.json({
-            txCbor: normalizedTxCbor,
+            txCbor: txCbor,
             message: "Swap transaction created successfully. Sign and submit this transaction to complete the swap."
         });
     } catch (error) {
         console.error('Error creating swap transaction:', error);
-        res.status(500).json({ error: 'Error creating swap transaction' });
+        res.status(500).json({ 
+            error: 'Error creating swap transaction',
+            message: error instanceof Error ? error.message : 'Unknown error'
+        });
     }
 });
 
 // Add a new API endpoint to use this function
-app.get('/api/pending-orders/:address', async (req: Request, res: Response) => {
-  const { address } = req.params;
-
-  try {
-    const pendingOrders = await getPendingOrders(address);
-    res.json({ pendingOrders });
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching pending orders' });
-  }
-});
-
 // Start the server
 export function start(){
     app.listen(port, () => {
