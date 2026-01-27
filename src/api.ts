@@ -128,7 +128,7 @@ app.get('/api/verified-tokens', async (req: Request, res: Response) => {
     }
 
     const filteredTokens = verifiedTokens.filter((token) => {
-        return token.fullName.toLowerCase().includes(safeSearch.toLowerCase()) || token.ticker.toLowerCase().includes(safeSearch.toLowerCase());
+        return token.fullName.toLowerCase().includes(safeSearch.toLowerCase()) || token.Ticker.toLowerCase().includes(safeSearch.toLowerCase());
     });
     const paginatedTokens = filteredTokens.slice((Number(page) - 1) * Number(pagination), Number(page) * Number(pagination));
     res.json({ tokens: paginatedTokens });
