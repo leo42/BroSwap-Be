@@ -64,7 +64,7 @@ def main():
                 "hexName": hex_name,
                 "fullName": full_name,
                 "Ticker": ticker,
-                "Decimals": decimals
+                "decimals": decimals
             })
 
             download_image(token)
