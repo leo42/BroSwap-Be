@@ -24,15 +24,14 @@ The swap engine has been rewritten to support multiple DEXes (Minswap + Splash) 
 ### Updated Files
 - `src/api.ts` - Updated to use new DEX manager (API unchanged)
 - `src/types.ts` - Added ScriptRequirement export
+- `src/dex/splashConstants.ts` - Splash API endpoints by network
+- `src/dex/splashDatum.ts` - Splash spot order datum codec helpers
 
 ## Key Features
 
 ### 1. Multi-DEX Support
 - Minswap adapter: Fully functional, uses on-chain Blockfrost data (SDK-free)
-- Splash adapter: Structure in place, needs:
-  - Pool script address
-  - Pool datum schema
-  - Swap transaction building logic
+- Splash adapter: Uses Splash API pool overview for pool data; spot order datum encoding/decoding implemented.
 
 ### 2. Route Optimization
 - Automatically finds best route across available DEXes
@@ -47,10 +46,9 @@ The swap engine has been rewritten to support multiple DEXes (Minswap + Splash) 
 ## TODO / Next Steps
 
 ### Splash Integration
-1. Provide Splash pool script address(es)
-2. Provide pool datum schema
-3. Implement pool discovery logic in `splashAdapter.ts`
-4. Implement swap transaction building in `txBuilder.ts` -> `buildSplashSwap()`
+1. Use Splash API pool overview for reserves/fees (cfmm pools only)
+2. Spot order datum encoding/decoding available in `src/dex/splashDatum.ts`
+3. Implement swap transaction building in `txBuilder.ts` -> `buildSplashSwap()`
 
 ### Minswap Transaction Building
 1. Implement custom Minswap swap building (currently placeholder)

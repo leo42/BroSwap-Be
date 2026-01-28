@@ -2137,8 +2137,8 @@
   {
     "policyId": "98dc68b04026544619a251bc01aad2075d28433524ac36cbc75599a1",
     "hexName": "6d6963726f686f736b",
-    "fullName": "\u00b5HOSK",
-    "ticker": "\u00b5HOSK",
+    "fullName": "µHOSK",
+    "ticker": "µHOSK",
     "decimals": 0
   },
   {
@@ -2756,5 +2756,12 @@
     "fullName": "CardanoPotions0010",
     "ticker": "CardanoPotions0010",
     "decimals": 0
+  },
+  {
+    "policyId": "5deab590a137066fef0e56f06ef1b830f21bc5d544661ba570bdd2ae",
+    "hexName": "424f44454741",
+    "fullName": "BODEGA",
+    "ticker": "BODEGA",
+    "decimals": 6
   }
 ]

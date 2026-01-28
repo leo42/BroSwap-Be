@@ -1,7 +1,7 @@
 import { MinswapAdapter } from '../dex/minswapAdapter.js';
 import { SplashAdapter } from '../dex/splashAdapter.js';
 import type { DexAdapter } from '../dex/types.js';
-import { optimizeExactIn, optimizeExactOut } from '../router/quoteOptimizer.js';
+import { optimizeExactIn, optimizeExactOut, type OptimizedQuote } from '../router/quoteOptimizer.js';
 import type { Asset } from '../dex/types.js';
 import { buildSwapTx, type BuildSwapTxOptions, type UTxO } from '../tx/txBuilder.js';
 import type { ScriptRequirement } from '../types.js';
@@ -50,12 +50,7 @@ export class DexManager {
     assetB: Asset,
     amountIn: bigint
   ): Promise<[bigint, number]> {
-    const optimized = await optimizeExactIn(this.adapters, assetA, assetB, amountIn);
-    
-    if (!optimized) {
-      throw new Error('No pools found for this asset pair');
-    }
-
+    const optimized = await this.getOptimizedExactIn(assetA, assetB, amountIn);
     return [optimized.totalAmountOut, optimized.priceImpact];
   }
 
@@ -67,13 +62,44 @@ export class DexManager {
     assetB: Asset,
     amountOut: bigint
   ): Promise<[bigint, number]> {
-    const optimized = await optimizeExactOut(this.adapters, assetA, assetB, amountOut);
-    
+    const optimized = await this.getOptimizedExactOut(assetA, assetB, amountOut);
+    return [optimized.totalAmountIn, optimized.priceImpact];
+  }
+
+  /**
+   * Get optimized routes for exact in
+   */
+  async getOptimizedExactIn(
+    assetA: Asset,
+    assetB: Asset,
+    amountIn: bigint
+  ): Promise<OptimizedQuote> {
+    const optimized = await optimizeExactIn(this.adapters, assetA, assetB, amountIn);
+
     if (!optimized) {
       throw new Error('No pools found for this asset pair');
     }
 
-    return [optimized.totalAmountIn, optimized.priceImpact];
+    this.logRoutes('quoteExactIn', optimized.routes);
+    return optimized;
+  }
+
+  /**
+   * Get optimized routes for exact out
+   */
+  async getOptimizedExactOut(
+    assetA: Asset,
+    assetB: Asset,
+    amountOut: bigint
+  ): Promise<OptimizedQuote> {
+    const optimized = await optimizeExactOut(this.adapters, assetA, assetB, amountOut);
+
+    if (!optimized) {
+      throw new Error('No pools found for this asset pair');
+    }
+
+    this.logRoutes('quoteExactOut', optimized.routes);
+    return optimized;
   }
 
   /**
@@ -104,11 +130,7 @@ export class DexManager {
     scriptRequirements?: ScriptRequirement[]
   ): Promise<string> {
     // Get optimized route
-    const optimized = await optimizeExactIn(this.adapters, assetIn, assetOut, amountIn);
-    
-    if (!optimized) {
-      throw new Error('No pools found for this asset pair');
-    }
+    const optimized = await this.getOptimizedExactIn(assetIn, assetOut, amountIn);
 
     // Apply slippage to routes
     const routesWithSlippage = optimized.routes.map(route => ({
@@ -130,6 +152,15 @@ export class DexManager {
     };
 
     return await buildSwapTx(options);
+  }
+
+  private logRoutes(tag: string, routes: { dexName: string; amountIn: bigint; amountOut: bigint }[]): void {
+    const routeSummary = routes.map(route => ({
+      dex: route.dexName,
+      amountIn: route.amountIn.toString(),
+      amountOut: route.amountOut.toString(),
+    }));
+    console.log(`[${tag}] route breakdown`, routeSummary);
   }
 }
 

@@ -190,65 +190,95 @@ export class MinswapAdapter implements DexAdapter {
   }
 
   async quoteExactIn(assetIn: Asset, assetOut: Asset, amountIn: bigint): Promise<Quote> {
-    const pool = await this.getPoolByPair(assetIn, assetOut);
-    if (!pool) {
+    const pools = await this.getPoolsByPair(assetIn, assetOut);
+    if (pools.length === 0) {
       throw new Error(`Pool not found for ${assetToString(assetIn)}/${assetToString(assetOut)}`);
     }
 
     const assetInId = assetToString(assetIn);
-    const reserveIn = assetInId === assetToString(pool.assetA) ? pool.reserveA : pool.reserveB;
-    const reserveOut = assetInId === assetToString(pool.assetA) ? pool.reserveB : pool.reserveA;
-    const feeNumerator = assetInId === assetToString(pool.assetA) ? pool.fee : (pool.feeB ?? pool.fee);
+    let bestQuote: Quote | null = null;
 
-    const amountOut = calculateAmountOut(
-      reserveIn,
-      reserveOut,
-      amountIn,
-      feeNumerator,
-      TRADING_FEE_DENOMINATOR
-    );
+    for (const pool of pools) {
+      const reserveIn = assetInId === assetToString(pool.assetA) ? pool.reserveA : pool.reserveB;
+      const reserveOut = assetInId === assetToString(pool.assetA) ? pool.reserveB : pool.reserveA;
+      const feeNumerator = assetInId === assetToString(pool.assetA) ? pool.fee : (pool.feeB ?? pool.fee);
 
-    const spotPrice = Number(reserveOut) / Number(reserveIn);
-    const executionPrice = Number(amountOut) / Number(amountIn);
-    const priceImpact = Math.abs((spotPrice - executionPrice) / spotPrice) * 100;
+      const amountOut = calculateAmountOut(
+        reserveIn,
+        reserveOut,
+        amountIn,
+        feeNumerator,
+        TRADING_FEE_DENOMINATOR
+      );
 
-    return {
-      amountOut,
-      priceImpact,
-      pool,
-      dexName: 'Minswap',
-    };
+      const spotPrice = Number(reserveOut) / Number(reserveIn);
+      const executionPrice = Number(amountOut) / Number(amountIn);
+      const priceImpact = Math.abs((spotPrice - executionPrice) / spotPrice) * 100;
+
+      if (!bestQuote || amountOut > bestQuote.amountOut) {
+        bestQuote = {
+          amountOut,
+          priceImpact,
+          pool,
+          dexName: 'Minswap',
+        };
+      }
+    }
+
+    if (!bestQuote) {
+      throw new Error(`Pool not found for ${assetToString(assetIn)}/${assetToString(assetOut)}`);
+    }
+
+    return bestQuote;
   }
 
   async quoteExactOut(assetIn: Asset, assetOut: Asset, amountOut: bigint): Promise<Quote> {
-    const pool = await this.getPoolByPair(assetIn, assetOut);
-    if (!pool) {
+    const pools = await this.getPoolsByPair(assetIn, assetOut);
+    if (pools.length === 0) {
       throw new Error(`Pool not found for ${assetToString(assetIn)}/${assetToString(assetOut)}`);
     }
 
     const assetInId = assetToString(assetIn);
-    const reserveIn = assetInId === assetToString(pool.assetA) ? pool.reserveA : pool.reserveB;
-    const reserveOut = assetInId === assetToString(pool.assetA) ? pool.reserveB : pool.reserveA;
-    const feeNumerator = assetInId === assetToString(pool.assetA) ? pool.fee : (pool.feeB ?? pool.fee);
+    let bestQuote: Quote | null = null;
+    let bestAmountIn: bigint | null = null;
 
-    const amountIn = calculateAmountIn(
-      reserveIn,
-      reserveOut,
-      amountOut,
-      feeNumerator,
-      TRADING_FEE_DENOMINATOR
-    );
+    for (const pool of pools) {
+      const reserveIn = assetInId === assetToString(pool.assetA) ? pool.reserveA : pool.reserveB;
+      const reserveOut = assetInId === assetToString(pool.assetA) ? pool.reserveB : pool.reserveA;
+      const feeNumerator = assetInId === assetToString(pool.assetA) ? pool.fee : (pool.feeB ?? pool.fee);
 
-    const spotPrice = Number(reserveOut) / Number(reserveIn);
-    const executionPrice = Number(amountOut) / Number(amountIn);
-    const priceImpact = Math.abs((spotPrice - executionPrice) / spotPrice) * 100;
+      try {
+        const amountIn = calculateAmountIn(
+          reserveIn,
+          reserveOut,
+          amountOut,
+          feeNumerator,
+          TRADING_FEE_DENOMINATOR
+        );
 
-    return {
-      amountOut,
-      priceImpact,
-      pool,
-      dexName: 'Minswap',
-    };
+        const spotPrice = Number(reserveOut) / Number(reserveIn);
+        const executionPrice = Number(amountOut) / Number(amountIn);
+        const priceImpact = Math.abs((spotPrice - executionPrice) / spotPrice) * 100;
+
+        if (bestAmountIn === null || amountIn < bestAmountIn) {
+          bestAmountIn = amountIn;
+          bestQuote = {
+            amountOut,
+            priceImpact,
+            pool,
+            dexName: 'Minswap',
+          };
+        }
+      } catch (error) {
+        continue;
+      }
+    }
+
+    if (!bestQuote) {
+      throw new Error(`Pool not found for ${assetToString(assetIn)}/${assetToString(assetOut)}`);
+    }
+
+    return bestQuote;
   }
 
   private async fetchAllPools(): Promise<void> {
@@ -310,6 +340,20 @@ export class MinswapAdapter implements DexAdapter {
     }
     const scriptsDatum = await this.blockfrost.scriptsDatumCbor(utxo.data_hash);
     return scriptsDatum.cbor;
+  }
+
+  private async getPoolsByPair(assetA: Asset, assetB: Asset): Promise<Pool[]> {
+    await this.fetchAllPools();
+
+    const assetAId = assetToString(assetA);
+    const assetBId = assetToString(assetB);
+
+    return this.allPools.filter(p => {
+      const pAssetA = assetToString(p.assetA);
+      const pAssetB = assetToString(p.assetB);
+      return (pAssetA === assetAId && pAssetB === assetBId) ||
+        (pAssetA === assetBId && pAssetB === assetAId);
+    });
   }
 }
 

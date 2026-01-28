@@ -15,6 +15,7 @@ export interface Pool {
   lpAsset: Asset;
   fee: bigint; // Fee numerator (e.g., 3n for 0.3%)
   feeB?: bigint; // Optional fee numerator for assetB -> assetA swaps
+  feeDenominator?: bigint; // Optional fee denominator (default varies by DEX)
   dexName: string;
   poolAddress?: string; // Script address for the pool
   poolUtxo?: string; // UTxO reference

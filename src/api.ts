@@ -212,8 +212,17 @@ app.get('/api/calculateIn', async (req: Request, res: Response) => {
 
     try {
         const dexManager = getDexManager();
-        const [amountIn, priceImpact] = await dexManager.calculateAmountIn(assetA, assetB, BigInt(amountOut));
-        res.json({ amountIn: amountIn.toString(), priceImpact: priceImpact.toString() });
+        const optimized = await dexManager.getOptimizedExactOut(assetA, assetB, BigInt(amountOut));
+        const routeBreakdown = optimized.routes.map(route => ({
+            dexName: route.dexName,
+            amountIn: route.amountIn.toString(),
+            amountOut: route.amountOut.toString(),
+        }));
+        res.json({
+            amountIn: optimized.totalAmountIn.toString(),
+            priceImpact: optimized.priceImpact.toString(),
+            routes: routeBreakdown,
+        });
     } catch (error) {
         res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
@@ -237,12 +246,156 @@ app.get('/api/calculateOut', async (req: Request, res: Response) => {
 
     try {
         const dexManager = getDexManager();
-        const [amountOut, priceImpact] = await dexManager.calculateAmountOut(assetA, assetB, BigInt(amountIn));
-        res.json({ amountOut: amountOut.toString(), priceImpact: priceImpact.toString() });
+        const optimized = await dexManager.getOptimizedExactIn(assetA, assetB, BigInt(amountIn));
+        const routeBreakdown = optimized.routes.map(route => ({
+            dexName: route.dexName,
+            amountIn: route.amountIn.toString(),
+            amountOut: route.amountOut.toString(),
+        }));
+        res.json({
+            amountOut: optimized.totalAmountOut.toString(),
+            priceImpact: optimized.priceImpact.toString(),
+            routes: routeBreakdown,
+        });
     } catch (error) {
         res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     }
 }); 
+
+app.get('/api/debug/quotes', async (req: Request, res: Response) => {
+    const { amountIn, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
+
+    const safeAssetAPolicyId = assetAPolicyId || "";
+    const safeAssetATokenName = assetATokenName || "";
+    const safeAssetBPolicyId = assetBPolicyId || "";
+    const safeAssetBTokenName = assetBTokenName || "";
+
+    if (typeof amountIn !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
+        return res.status(400).json({ error: 'Invalid query parameters' });
+    }
+
+    const assetA: Asset = { policyId: safeAssetAPolicyId, tokenName: safeAssetATokenName };
+    const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBTokenName };
+
+    try {
+        const dexManager = getDexManager();
+        const adapters = dexManager.getAdapters();
+        const results = await Promise.all(adapters.map(async (adapter) => {
+            try {
+                const quote = await adapter.quoteExactIn(assetA, assetB, BigInt(amountIn));
+                return {
+                    dexName: quote.dexName,
+                    amountOut: quote.amountOut.toString(),
+                    priceImpact: quote.priceImpact,
+                    pool: {
+                        assetA: quote.pool.assetA,
+                        assetB: quote.pool.assetB,
+                        reserveA: quote.pool.reserveA.toString(),
+                        reserveB: quote.pool.reserveB.toString(),
+                        fee: quote.pool.fee.toString(),
+                        feeB: quote.pool.feeB ? quote.pool.feeB.toString() : undefined,
+                        feeDenominator: quote.pool.feeDenominator ? quote.pool.feeDenominator.toString() : undefined,
+                    },
+                };
+            } catch (error) {
+                return {
+                    dexName: adapter.getName(),
+                    error: error instanceof Error ? error.message : String(error),
+                };
+            }
+        }));
+        res.json({
+            amountIn,
+            results,
+        });
+    } catch (error) {
+        res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+});
+
+app.get('/api/debug/split', async (req: Request, res: Response) => {
+    const { amountIn, assetAPolicyId, assetATokenName, assetBPolicyId, assetBTokenName } = req.query;
+
+    const safeAssetAPolicyId = assetAPolicyId || "";
+    const safeAssetATokenName = assetATokenName || "";
+    const safeAssetBPolicyId = assetBPolicyId || "";
+    const safeAssetBTokenName = assetBTokenName || "";
+
+    if (typeof amountIn !== 'string' || typeof safeAssetAPolicyId !== 'string' || typeof safeAssetATokenName !== 'string' || typeof safeAssetBPolicyId !== 'string' || typeof safeAssetBTokenName !== 'string') {
+        return res.status(400).json({ error: 'Invalid query parameters' });
+    }
+
+    const assetA: Asset = { policyId: safeAssetAPolicyId, tokenName: safeAssetATokenName };
+    const assetB: Asset = { policyId: safeAssetBPolicyId, tokenName: safeAssetBTokenName };
+    const totalIn = BigInt(amountIn);
+
+    try {
+        const dexManager = getDexManager();
+        const adapters = dexManager.getAdapters();
+
+        const fullQuotes = await Promise.all(adapters.map(async (adapter) => {
+            try {
+                const quote = await adapter.quoteExactIn(assetA, assetB, totalIn);
+                return {
+                    dexName: quote.dexName,
+                    amountOut: quote.amountOut,
+                    priceImpact: quote.priceImpact,
+                };
+            } catch (error) {
+                return {
+                    dexName: adapter.getName(),
+                    error: error instanceof Error ? error.message : String(error),
+                };
+            }
+        }));
+
+        const bestSingle = fullQuotes
+            .filter((q): q is { dexName: string; amountOut: bigint; priceImpact: number } => 'amountOut' in q)
+            .reduce((best, q) => (q.amountOut > best.amountOut ? q : best), fullQuotes.find((q): q is { dexName: string; amountOut: bigint; priceImpact: number } => 'amountOut' in q)!);
+
+        let bestSplit: { dexA: string; dexB: string; percentA: number; amountOut: bigint; priceImpact: number } | null = null;
+
+        for (let i = 0; i < adapters.length; i++) {
+            for (let j = i + 1; j < adapters.length; j++) {
+                for (let percent = 1; percent < 100; percent++) {
+                    const amountInA = (totalIn * BigInt(percent)) / 100n;
+                    const amountInB = totalIn - amountInA;
+                    if (amountInA === 0n || amountInB === 0n) {
+                        continue;
+                    }
+                    try {
+                        const quoteA = await adapters[i].quoteExactIn(assetA, assetB, amountInA);
+                        const quoteB = await adapters[j].quoteExactIn(assetA, assetB, amountInB);
+                        const totalOut = quoteA.amountOut + quoteB.amountOut;
+                        const weightA = percent / 100;
+                        const totalPriceImpact = quoteA.priceImpact * weightA + quoteB.priceImpact * (1 - weightA);
+
+                        if (!bestSplit || totalOut > bestSplit.amountOut) {
+                            bestSplit = {
+                                dexA: quoteA.dexName,
+                                dexB: quoteB.dexName,
+                                percentA: percent,
+                                amountOut: totalOut,
+                                priceImpact: totalPriceImpact,
+                            };
+                        }
+                    } catch (error) {
+                        continue;
+                    }
+                }
+            }
+        }
+
+        res.json({
+            amountIn,
+            bestSingle: bestSingle ? { ...bestSingle, amountOut: bestSingle.amountOut.toString() } : null,
+            bestSplit: bestSplit ? { ...bestSplit, amountOut: bestSplit.amountOut.toString() } : null,
+            quotes: fullQuotes.map(q => ('amountOut' in q ? { ...q, amountOut: q.amountOut.toString() } : q)),
+        });
+    } catch (error) {
+        res.status(400).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+    }
+});
 
 app.get('/api/verified-tokens', async (req: Request, res: Response) => {
     const {search , page, pagination} = req.query;

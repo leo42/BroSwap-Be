@@ -25,7 +25,9 @@ export async function optimizeExactIn(
       const quote = await adapter.quoteExactIn(assetIn, assetOut, amountIn);
       quotes.push({ ...quote, adapter });
     } catch (error) {
-      console.warn(`Failed to get quote from ${adapter.getName()}:`, error);
+      if (!isPoolNotFoundError(error)) {
+        console.warn(`Failed to get quote from ${adapter.getName()}:`, error);
+      }
       // Continue with other DEXes
     }
   }
@@ -34,115 +36,69 @@ export async function optimizeExactIn(
     return null;
   }
 
-  // If only one quote, use it
-  if (quotes.length === 1) {
-    const quote = quotes[0];
-    return {
-      totalAmountOut: quote.amountOut,
-      totalAmountIn: amountIn,
-      priceImpact: quote.priceImpact,
-      routes: [{
-        dexName: quote.dexName,
-        pool: quote.pool,
-        amountIn,
-        amountOut: quote.amountOut,
-        minimumAmountOut: quote.amountOut, // Will be adjusted with slippage later
-      }],
-    };
-  }
+  const bestSingleQuote = quotes.reduce((best, q) =>
+    q.amountOut > best.amountOut ? q : best
+  );
 
-  // Try different split ratios and find the best
-  const splitRatios = [
-    [1.0, 0.0], // 100% first DEX
-    [0.0, 1.0], // 100% second DEX
-    [0.5, 0.5], // 50/50
-    [0.75, 0.25], // 75/25
-    [0.25, 0.75], // 25/75
-    [0.6, 0.4], // 60/40
-    [0.4, 0.6], // 40/60
-  ];
+  let bestQuote: OptimizedQuote = {
+    totalAmountOut: bestSingleQuote.amountOut,
+    totalAmountIn: amountIn,
+    priceImpact: bestSingleQuote.priceImpact,
+    routes: [{
+      dexName: bestSingleQuote.dexName,
+      pool: bestSingleQuote.pool,
+      amountIn,
+      amountOut: bestSingleQuote.amountOut,
+      minimumAmountOut: bestSingleQuote.amountOut,
+    }],
+  };
 
-  let bestQuote: OptimizedQuote | null = null;
-  let bestTotalOut = 0n;
+  const splitPercents = Array.from({ length: 99 }, (_, i) => i + 1);
 
-  for (const [ratio1, ratio2] of splitRatios) {
-    if (quotes.length < 2) break;
-    
-    const amountIn1 = BigInt(Math.floor(Number(amountIn) * ratio1));
-    const amountIn2 = amountIn - amountIn1;
+  for (let i = 0; i < quotes.length; i++) {
+    for (let j = i + 1; j < quotes.length; j++) {
+      for (const percent of splitPercents) {
+        const amountInA = (amountIn * BigInt(percent)) / 100n;
+        const amountInB = amountIn - amountInA;
+        if (amountInA === 0n || amountInB === 0n) {
+          continue;
+        }
 
-    if (amountIn1 === 0n && amountIn2 === 0n) continue;
+        try {
+          const quoteA = await quotes[i].adapter.quoteExactIn(assetIn, assetOut, amountInA);
+          const quoteB = await quotes[j].adapter.quoteExactIn(assetIn, assetOut, amountInB);
+          const totalOut = quoteA.amountOut + quoteB.amountOut;
+          const weightA = percent / 100;
+          const totalPriceImpact = quoteA.priceImpact * weightA + quoteB.priceImpact * (1 - weightA);
 
-    const routes: SwapRoute[] = [];
-    let totalOut = 0n;
-    let totalPriceImpact = 0;
-    let valid = true;
-
-    // Get quote for first DEX
-    if (amountIn1 > 0n) {
-      try {
-        const quote1 = await quotes[0].adapter.quoteExactIn(assetIn, assetOut, amountIn1);
-        routes.push({
-          dexName: quote1.dexName,
-          pool: quote1.pool,
-          amountIn: amountIn1,
-          amountOut: quote1.amountOut,
-          minimumAmountOut: quote1.amountOut,
-        });
-        totalOut += quote1.amountOut;
-        totalPriceImpact += quote1.priceImpact * ratio1;
-      } catch (error) {
-        valid = false;
+          if (totalOut > bestQuote.totalAmountOut) {
+            bestQuote = {
+              totalAmountOut: totalOut,
+              totalAmountIn: amountIn,
+              priceImpact: totalPriceImpact,
+              routes: [
+                {
+                  dexName: quoteA.dexName,
+                  pool: quoteA.pool,
+                  amountIn: amountInA,
+                  amountOut: quoteA.amountOut,
+                  minimumAmountOut: quoteA.amountOut,
+                },
+                {
+                  dexName: quoteB.dexName,
+                  pool: quoteB.pool,
+                  amountIn: amountInB,
+                  amountOut: quoteB.amountOut,
+                  minimumAmountOut: quoteB.amountOut,
+                },
+              ],
+            };
+          }
+        } catch (error) {
+          continue;
+        }
       }
     }
-
-    // Get quote for second DEX
-    if (amountIn2 > 0n && valid) {
-      try {
-        const quote2 = await quotes[1].adapter.quoteExactIn(assetIn, assetOut, amountIn2);
-        routes.push({
-          dexName: quote2.dexName,
-          pool: quote2.pool,
-          amountIn: amountIn2,
-          amountOut: quote2.amountOut,
-          minimumAmountOut: quote2.amountOut,
-        });
-        totalOut += quote2.amountOut;
-        totalPriceImpact += quote2.priceImpact * ratio2;
-      } catch (error) {
-        valid = false;
-      }
-    }
-
-    if (valid && totalOut > bestTotalOut) {
-      bestTotalOut = totalOut;
-      bestQuote = {
-        totalAmountOut: totalOut,
-        totalAmountIn: amountIn,
-        priceImpact: totalPriceImpact,
-        routes,
-      };
-    }
-  }
-
-  // If no split worked better, use the best single DEX quote
-  if (!bestQuote || bestQuote.totalAmountOut <= quotes[0].amountOut) {
-    const bestSingleQuote = quotes.reduce((best, q) => 
-      q.amountOut > best.amountOut ? q : best
-    );
-    
-    return {
-      totalAmountOut: bestSingleQuote.amountOut,
-      totalAmountIn: amountIn,
-      priceImpact: bestSingleQuote.priceImpact,
-      routes: [{
-        dexName: bestSingleQuote.dexName,
-        pool: bestSingleQuote.pool,
-        amountIn,
-        amountOut: bestSingleQuote.amountOut,
-        minimumAmountOut: bestSingleQuote.amountOut,
-      }],
-    };
   }
 
   return bestQuote;
@@ -165,7 +121,9 @@ export async function optimizeExactOut(
       const quote = await adapter.quoteExactOut(assetIn, assetOut, amountOut);
       quotes.push({ ...quote, adapter });
     } catch (error) {
-      console.warn(`Failed to get quote from ${adapter.getName()}:`, error);
+      if (!isPoolNotFoundError(error)) {
+        console.warn(`Failed to get quote from ${adapter.getName()}:`, error);
+      }
       // Continue with other DEXes
     }
   }
@@ -174,68 +132,101 @@ export async function optimizeExactOut(
     return null;
   }
 
-  // If only one quote, use it
-  if (quotes.length === 1) {
-    // For exact out, we need to calculate the input needed
-    const quote = quotes[0];
-    // The quote already has amountOut, but we need to reverse calculate amountIn
-    // This is a simplified approach - in practice, we'd need to query with different amounts
-    const estimatedAmountIn = await estimateAmountInForExactOut(
-      quotes[0].adapter,
-      assetIn,
-      assetOut,
-      amountOut
-    );
-    
-    return {
-      totalAmountOut: amountOut,
-      totalAmountIn: estimatedAmountIn,
-      priceImpact: quote.priceImpact,
-      routes: [{
-        dexName: quote.dexName,
-        pool: quote.pool,
-        amountIn: estimatedAmountIn,
-        amountOut,
-        minimumAmountOut: amountOut,
-      }],
-    };
-  }
-
-  // For exact out with multiple DEXes, we need to find the split that minimizes total input
-  // This is more complex - for now, use the DEX that requires least input
   let bestQuote: OptimizedQuote | null = null;
   let bestAmountIn = BigInt(Number.MAX_SAFE_INTEGER);
 
   for (const quote of quotes) {
     try {
-      const estimatedAmountIn = await estimateAmountInForExactOut(
-        quote.adapter,
-        assetIn,
-        assetOut,
-        amountOut
-      );
-      
-      if (estimatedAmountIn < bestAmountIn) {
-        bestAmountIn = estimatedAmountIn;
+      const exactOut = await safeQuoteExactOut(quote.adapter, assetIn, assetOut, amountOut);
+      if (exactOut.amountOut === amountOut && exactOut.amountIn < bestAmountIn) {
+        bestAmountIn = exactOut.amountIn;
         bestQuote = {
           totalAmountOut: amountOut,
-          totalAmountIn: estimatedAmountIn,
-          priceImpact: quote.priceImpact,
+          totalAmountIn: exactOut.amountIn,
+          priceImpact: exactOut.priceImpact,
           routes: [{
-            dexName: quote.dexName,
-            pool: quote.pool,
-            amountIn: estimatedAmountIn,
+            dexName: exactOut.dexName,
+            pool: exactOut.pool,
+            amountIn: exactOut.amountIn,
             amountOut,
             minimumAmountOut: amountOut,
           }],
         };
       }
     } catch (error) {
-      console.warn(`Failed to estimate input for ${quote.dexName}:`, error);
+      console.warn(`Failed to quote exact out for ${quote.dexName}:`, error);
+    }
+  }
+
+  if (!bestQuote) {
+    return null;
+  }
+
+  const splitPercents = Array.from({ length: 99 }, (_, i) => i + 1);
+  for (let i = 0; i < quotes.length; i++) {
+    for (let j = i + 1; j < quotes.length; j++) {
+      for (const percent of splitPercents) {
+        const amountOutA = (amountOut * BigInt(percent)) / 100n;
+        const amountOutB = amountOut - amountOutA;
+        if (amountOutA === 0n || amountOutB === 0n) {
+          continue;
+        }
+        try {
+          const quoteA = await safeQuoteExactOut(quotes[i].adapter, assetIn, assetOut, amountOutA);
+          const quoteB = await safeQuoteExactOut(quotes[j].adapter, assetIn, assetOut, amountOutB);
+          const totalIn = quoteA.amountIn + quoteB.amountIn;
+          const weightA = percent / 100;
+          const totalPriceImpact = quoteA.priceImpact * weightA + quoteB.priceImpact * (1 - weightA);
+
+          if (totalIn < bestAmountIn) {
+            bestAmountIn = totalIn;
+            bestQuote = {
+              totalAmountOut: amountOut,
+              totalAmountIn: totalIn,
+              priceImpact: totalPriceImpact,
+              routes: [
+                {
+                  dexName: quoteA.dexName,
+                  pool: quoteA.pool,
+                  amountIn: quoteA.amountIn,
+                  amountOut: amountOutA,
+                  minimumAmountOut: amountOutA,
+                },
+                {
+                  dexName: quoteB.dexName,
+                  pool: quoteB.pool,
+                  amountIn: quoteB.amountIn,
+                  amountOut: amountOutB,
+                  minimumAmountOut: amountOutB,
+                },
+              ],
+            };
+          }
+        } catch (error) {
+          continue;
+        }
+      }
     }
   }
 
   return bestQuote;
+}
+
+async function safeQuoteExactOut(
+  adapter: DexAdapter,
+  assetIn: Asset,
+  assetOut: Asset,
+  amountOut: bigint
+): Promise<{ amountIn: bigint; amountOut: bigint; priceImpact: number; pool: any; dexName: string }> {
+  const quote = await adapter.quoteExactOut(assetIn, assetOut, amountOut);
+  const estimatedAmountIn = await estimateAmountInForExactOut(adapter, assetIn, assetOut, amountOut);
+  return {
+    amountIn: estimatedAmountIn,
+    amountOut,
+    priceImpact: quote.priceImpact,
+    pool: quote.pool,
+    dexName: quote.dexName,
+  };
 }
 
 /**
@@ -271,5 +262,13 @@ async function estimateAmountInForExactOut(
   }
 
   return bestInput;
+}
+
+function isPoolNotFoundError(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+  const message = error.message.toLowerCase();
+  return message.includes('pool not found');
 }
 
