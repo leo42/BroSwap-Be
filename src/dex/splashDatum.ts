@@ -167,6 +167,7 @@ export function decodeSpotOrderDatum(cbor: string): SpotOrderDatum {
 }
 
 export function encodeSpotOrderDatum(datum: SpotOrderDatum): string {
+  assertSpotOrderDatum(datum);
   const address = new Constr(0, [
     encodePaymentCredential(datum.address.paymentCredentials),
     encodeStakeCredential(datum.address.stakeCredentials),
@@ -187,6 +188,66 @@ export function encodeSpotOrderDatum(datum: SpotOrderDatum): string {
     datum.permittedExecutors,
   ]);
   return Data.to(data as unknown as Data);
+}
+
+function assertHexString(value: string, label: string, allowEmpty = false): void {
+  if (!allowEmpty && value.length === 0) {
+    throw new Error(`${label} must not be empty`);
+  }
+  if (value.length % 2 !== 0) {
+    throw new Error(`${label} must be even-length hex`);
+  }
+  if (!/^[0-9a-fA-F]*$/.test(value)) {
+    throw new Error(`${label} must be hex`);
+  }
+}
+
+function assertNonNegative(value: bigint, label: string): void {
+  if (value < 0n) {
+    throw new Error(`${label} must be non-negative`);
+  }
+}
+
+function assertAsset(asset: { policyId: string; name: string }, label: string): void {
+  if (asset.policyId.length !== 0 && asset.policyId.length !== 56) {
+    throw new Error(`${label}.policyId must be 28 bytes hex or empty for ADA`);
+  }
+  assertHexString(asset.policyId, `${label}.policyId`, asset.policyId.length === 0);
+  assertHexString(asset.name, `${label}.name`, true);
+}
+
+function assertCredential(cred: PaymentCredential | StakeCredential, label: string): void {
+  if ('paymentKeyHash' in cred) {
+    assertHexString(cred.paymentKeyHash, `${label}.paymentKeyHash`);
+  } else if ('scriptHash' in cred) {
+    assertHexString(cred.scriptHash, `${label}.scriptHash`);
+  } else if ('slotNumber' in cred) {
+    assertNonNegative(cred.slotNumber, `${label}.slotNumber`);
+    assertNonNegative(cred.transactionIndex, `${label}.transactionIndex`);
+    assertNonNegative(cred.certificateIndex, `${label}.certificateIndex`);
+  }
+}
+
+export function assertSpotOrderDatum(datum: SpotOrderDatum): void {
+  assertHexString(datum.type, 'type');
+  assertHexString(datum.beacon, 'beacon');
+  assertAsset(datum.inputAsset, 'inputAsset');
+  assertAsset(datum.outputAsset, 'outputAsset');
+  if (datum.inputAmount <= 0n) {
+    throw new Error('inputAmount must be positive');
+  }
+  assertNonNegative(datum.costPerExStep, 'costPerExStep');
+  assertNonNegative(datum.minMarginalOutput, 'minMarginalOutput');
+  assertNonNegative(datum.executorFee, 'executorFee');
+  if (datum.price.denominator <= 0n) {
+    throw new Error('price.denominator must be positive');
+  }
+  assertCredential(datum.address.paymentCredentials, 'address.paymentCredentials');
+  assertCredential(datum.address.stakeCredentials, 'address.stakeCredentials');
+  assertHexString(datum.cancelPkh, 'cancelPkh', true);
+  for (const executor of datum.permittedExecutors) {
+    assertHexString(executor, 'permittedExecutors[]', true);
+  }
 }
 
 

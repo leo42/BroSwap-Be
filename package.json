@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && npm run copy-assets",
+    "test:tx": "npm run build && node scripts/test-txBuilder.mjs",
     "watch": "tsc -w",
     "dev": "NODE_OPTIONS='--no-warnings' SODIUM_NATIVE=1 nodemon dist/index.js",
     "start": "NODE_OPTIONS='--no-warnings' SODIUM_NATIVE=1 concurrently \"npm run watch\" \"npm run dev\"",

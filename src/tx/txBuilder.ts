@@ -3,6 +3,9 @@
 import type { Asset, SwapRoute } from '../dex/types.js';
 import type { ScriptRequirement } from '../types.js';
 import { loadConfig } from '../utils/configLoader.js';
+import { buildMinswapSwapExactInOrderOption } from '../dex/minswapDatum.js';
+import { encodeSpotOrderDatum, type SpotOrderDatum } from '../dex/splashDatum.js';
+import { getSplashOrderConfig } from '../dex/splashOrder.js';
 const config = loadConfig();
 import BigNumber from 'bignumber.js';
 import cbor from 'cbor';
@@ -36,172 +39,205 @@ export interface BuildSwapTxOptions {
 }
 
 /**
+ * Notes:
+ * - Mixed DEX routes are not supported in a single tx.
+ * - Minswap orders are built via @minswap/sdk (Lucid Cardano).
+ * - Splash orders require env/config: SPLASH_ORDER_ADDRESS, SPLASH_ORDER_TYPE,
+ *   SPLASH_ORDER_BEACON, SPLASH_BATCHER_FEE, SPLASH_DEPOSIT_ADA,
+ *   SPLASH_COST_PER_EX_STEP, SPLASH_EXECUTOR_FEE (or config.splash.* equivalents).
+ */
+
+/**
  * Build a swap transaction using Lucid Evolution
  * Returns unsigned CBOR hex string
  */
 export async function buildSwapTx(options: BuildSwapTxOptions): Promise<string> {
-  const { routes, utxos, address, slippage, script, scriptRequirements } = options;
+  const { routes, utxos, address, slippage, assetIn, assetOut } = options;
 
-  // Lazy import Lucid Evolution to avoid libsodium initialization at module load time
-  const { Lucid, Blockfrost } = await import("@lucid-evolution/lucid");
+  if (routes.length === 0) {
+    throw new Error('No routes provided');
+  }
 
-  // Initialize Lucid Evolution with provider
-  const provider = config.network === 'mainnet'
-    ? new Blockfrost("https://cardano-mainnet.blockfrost.io/api/v0", config.blockfrost.projectId)
-    : new Blockfrost("https://cardano-preview.blockfrost.io/api/v0", config.blockfrost.projectId);
+  const dexNames = Array.from(new Set(routes.map(route => route.dexName)));
+  const isDev = process.env.NODE_ENV !== 'production';
 
-  const lucid = await Lucid(provider, config.network === 'mainnet' ? 'Mainnet' : 'Preview');
+  let effectiveRoutes = routes;
+  if (dexNames.length > 1) {
+    const message = `Mixed DEX routes are not supported in a single transaction: ${dexNames.join(', ')}`;
+    if (isDev) {
+      console.warn(message);
+      const primaryDex = dexNames[0];
+      effectiveRoutes = routes.filter(route => route.dexName === primaryDex);
+      if (effectiveRoutes.length === 0) {
+        throw new Error('No routes for primary DEX after filtering');
+      }
+    } else {
+      throw new Error(message);
+    }
+  }
 
-  // Start building transaction
-  let tx = lucid.newTx();
+  const primaryDex = dexNames[0];
+  if (primaryDex === 'Minswap') {
+    return await buildMinswapSwapTx(effectiveRoutes, utxos, address, slippage, assetIn, assetOut);
+  }
+  if (primaryDex === 'Splash') {
+    return await buildSplashSwapTx(effectiveRoutes, utxos, address, slippage, assetIn, assetOut);
+  }
 
-  // Convert UTxOs to Lucid Evolution format
-  const lucidUtxos = utxos.map(utxo => ({
-    txHash: utxo.txHash,
-    outputIndex: utxo.outputIndex,
-    address: utxo.address,
-    assets: utxo.assets,
-    datum: utxo.datum,
-    datumHash: utxo.datumHash,
-    scriptRef: utxo.scriptRef,
-  })) as any; // Type assertion - Lucid Evolution UTxO type may differ
+  throw new Error(`Unsupported DEX: ${primaryDex}`);
+}
 
-  // Select wallet from UTxOs
+async function buildMinswapSwapTx(
+  routes: SwapRoute[],
+  utxos: UTxO[],
+  address: string,
+  slippage: BigNumber,
+  assetIn: Asset,
+  assetOut: Asset
+): Promise<string> {
+  const { BlockFrostAPI } = await import('@blockfrost/blockfrost-js');
+  const { BlockfrostAdapter, DexV2 } = await import('@minswap/sdk');
+  const { Lucid, Blockfrost } = await import('lucid-cardano');
+
+  const provider =
+    config.network === 'mainnet'
+      ? new Blockfrost('https://cardano-mainnet.blockfrost.io/api/v0', config.blockfrost.projectId)
+      : new Blockfrost('https://cardano-preview.blockfrost.io/api/v0', config.blockfrost.projectId);
+  const lucid = await Lucid.new(provider, config.network === 'mainnet' ? 'Mainnet' : 'Preview');
+
+  const blockFrost = new BlockFrostAPI({
+    projectId: config.blockfrost.projectId,
+    network: config.network,
+  });
+  const adapter = new BlockfrostAdapter({ blockFrost });
+  const dex = new DexV2(lucid, adapter);
+
+  const lucidUtxos = toLucidUtxos(utxos);
+
+  const orderOptions = routes.map(route => {
+    const minimumAmountOut = applySlippage(route.amountOut, slippage, 'down');
+    return buildMinswapSwapExactInOrderOption(
+      route,
+      assetIn,
+      assetOut,
+      route.amountIn,
+      minimumAmountOut
+    );
+  });
+
+  const txComplete = await dex.createBulkOrdersTx({
+    sender: address,
+    orderOptions,
+    availableUtxos: lucidUtxos,
+  });
+
+  const txCbor = txComplete.toString();
+  return normalizeTransactionCbor(txCbor);
+}
+
+async function buildSplashSwapTx(
+  routes: SwapRoute[],
+  utxos: UTxO[],
+  address: string,
+  slippage: BigNumber,
+  assetIn: Asset,
+  assetOut: Asset
+): Promise<string> {
+  const { Lucid, Blockfrost } = await import('lucid-cardano');
+  const splashConfig = getSplashOrderConfig();
+  if (!splashConfig) {
+    const message = 'Splash order config missing; set SPLASH_ORDER_* env/config values';
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(message);
+    }
+    throw new Error(message);
+  }
+
+  const provider =
+    config.network === 'mainnet'
+      ? new Blockfrost('https://cardano-mainnet.blockfrost.io/api/v0', config.blockfrost.projectId)
+      : new Blockfrost('https://cardano-preview.blockfrost.io/api/v0', config.blockfrost.projectId);
+  const lucid = await Lucid.new(provider, config.network === 'mainnet' ? 'Mainnet' : 'Preview');
+
+  const lucidUtxos = toLucidUtxos(utxos);
   lucid.selectWallet.fromAddress(address, lucidUtxos);
 
-  // Build swap transactions for each route
-  // For now, we'll build a single transaction that handles all routes
-  // This is a simplified approach - in practice, you might need separate transactions
-  // or a more complex composition depending on the DEX requirements
-
-  // If we have routes, build them
-  // Note: Actual DEX-specific swap building needs to be implemented
-  // with the correct script addresses and datum schemas
-  if (routes.length > 0) {
-    // For now, we'll create a basic transaction structure
-    // The actual swap logic needs to be implemented per DEX
-    
-    // Calculate total amounts
-    let totalAmountIn = 0n;
-    let totalAmountOut = 0n;
-    
-    for (const route of routes) {
-      totalAmountIn += route.amountIn;
-      totalAmountOut += route.amountOut;
-    }
-
-    // Calculate minimum amount out with slippage
-    const minimumAmountOut = applySlippage(totalAmountOut, slippage, 'down');
-
-    // Build the swap based on DEX type
-    // TODO: Implement actual swap building for each DEX
-    // This requires:
-    // 1. Minswap: Order script address, order datum schema
-    // 2. Splash: Pool script address, swap datum schema
-    
-    const firstRoute = routes[0];
-    if (firstRoute.dexName === 'Minswap') {
-      tx = await buildMinswapSwap(tx, firstRoute, minimumAmountOut, lucid);
-    } else if (firstRoute.dexName === 'Splash') {
-      tx = await buildSplashSwap(tx, firstRoute, minimumAmountOut, lucid);
-    } else {
-      throw new Error(`Unsupported DEX: ${firstRoute.dexName}`);
-    }
+  let tx = lucid.newTx();
+  const addressDetails = lucid.utils.getAddressDetails(address);
+  if (!addressDetails.paymentCredential) {
+    throw new Error('Invalid sender address: missing payment credential');
   }
 
-  // Handle script requirements if provided
-  // Note: Lucid Evolution API may differ - this is a placeholder
-  // TODO: Implement proper script attachment based on actual Lucid Evolution API
-  if (script) {
-    // tx.attachSpendingValidator might not exist in this version
-    // This will need to be implemented based on actual API
-    console.warn('Script attachment not yet implemented - needs Lucid Evolution API review');
-    
-    if (scriptRequirements) {
-      for (const requirement of scriptRequirements) {
-        if (requirement.code === 1 && typeof requirement.value === 'string') {
-          tx = tx.addSignerKey(requirement.value);
-        } else if (requirement.code === 2 && typeof requirement.value === 'number') {
-          // Convert slot to unix time
-          const unixTime = slotToUnixTime(requirement.value);
-          tx = tx.validTo(unixTime);
-        } else if (requirement.code === 3 && typeof requirement.value === 'number') {
-          const unixTime = slotToUnixTime(requirement.value);
-          tx = tx.validFrom(unixTime);
-        }
-      }
+  for (const route of routes) {
+    const poolAssetA = route.pool.assetA;
+    const poolAssetB = route.pool.assetB;
+    const inputMatches =
+      (assetIn.policyId === poolAssetA.policyId && assetIn.tokenName === poolAssetA.tokenName) ||
+      (assetIn.policyId === poolAssetB.policyId && assetIn.tokenName === poolAssetB.tokenName);
+    const outputMatches =
+      (assetOut.policyId === poolAssetA.policyId && assetOut.tokenName === poolAssetA.tokenName) ||
+      (assetOut.policyId === poolAssetB.policyId && assetOut.tokenName === poolAssetB.tokenName);
+    if (!inputMatches || !outputMatches) {
+      throw new Error('assetIn/assetOut do not match Splash pool assets');
     }
+
+    const minimumAmountOut = applySlippage(route.amountOut, slippage, 'down');
+    const datum: SpotOrderDatum = {
+      type: splashConfig.orderType,
+      beacon: splashConfig.beacon,
+      inputAsset: {
+        policyId: assetIn.policyId,
+        name: assetIn.tokenName,
+      },
+      inputAmount: route.amountIn,
+      costPerExStep: splashConfig.costPerExStep,
+      minMarginalOutput: minimumAmountOut,
+      outputAsset: {
+        policyId: assetOut.policyId,
+        name: assetOut.tokenName,
+      },
+      price: {
+        numerator: minimumAmountOut,
+        denominator: route.amountIn,
+      },
+      executorFee: splashConfig.executorFee,
+      address: {
+        paymentCredentials:
+          addressDetails.paymentCredential.type === 'Key'
+            ? { paymentKeyHash: addressDetails.paymentCredential.hash }
+            : { scriptHash: addressDetails.paymentCredential.hash },
+        stakeCredentials:
+          addressDetails.stakeCredential?.type === 'Key'
+            ? { paymentKeyHash: addressDetails.stakeCredential.hash }
+            : addressDetails.stakeCredential?.type === 'Script'
+              ? { scriptHash: addressDetails.stakeCredential.hash }
+              : {},
+      },
+      cancelPkh:
+        addressDetails.paymentCredential.type === 'Key'
+          ? addressDetails.paymentCredential.hash
+          : '',
+      permittedExecutors: [],
+    };
+
+    const datumCbor = encodeSpotOrderDatum(datum);
+    const assets = buildAssetMap(
+      assetIn.policyId,
+      assetIn.tokenName,
+      route.amountIn
+    );
+    assets.lovelace =
+      (assets.lovelace ?? 0n) +
+      splashConfig.depositAda +
+      splashConfig.batcherFee +
+      splashConfig.executorFee;
+
+    tx = tx.payToContract(splashConfig.orderAddress, { inline: datumCbor }, assets);
   }
 
-  // Complete the transaction (balance and select UTxOs)
   const completedTx = await tx.complete();
-
-  // Get the unsigned transaction CBOR
-  const txCbor = await completedTx.toString();
-
-  // Normalize the CBOR (remove empty multiasset maps per CIP-21)
-  const normalizedCbor = normalizeTransactionCbor(txCbor);
-
-  return normalizedCbor;
-}
-
-/**
- * Build Minswap swap transaction
- * Note: This is a placeholder - actual implementation needs Minswap order script details
- */
-async function buildMinswapSwap(
-  tx: any,
-  route: SwapRoute,
-  minimumAmountOut: bigint,
-  lucid: any
-): Promise<any> {
-  // TODO: Implement actual Minswap swap building
-  // This would involve:
-  // 1. Creating an order datum
-  // 2. Sending assets to the Minswap order script
-  // 3. Setting up the swap parameters
-  
-  // For now, this is a placeholder that would need the actual Minswap script addresses
-  // and datum structures
-  
-  const assetInId = route.pool.assetA.policyId === "" 
-    ? "lovelace" 
-    : route.pool.assetA.policyId + route.pool.assetA.tokenName;
-  
-  const assetOutId = route.pool.assetB.policyId === "" 
-    ? "lovelace" 
-    : route.pool.assetB.policyId + route.pool.assetB.tokenName;
-
-  // Placeholder: In practice, you'd need to:
-  // 1. Pay to Minswap order script with order datum
-  // 2. Include the swap parameters in the datum
-  // 3. Handle the refund address
-  
-  console.warn('Minswap swap building not fully implemented - needs script addresses and datum schema');
-  
-  return tx;
-}
-
-/**
- * Build Splash swap transaction
- * Note: This is a placeholder - actual implementation needs Splash pool script details
- */
-async function buildSplashSwap(
-  tx: any,
-  route: SwapRoute,
-  minimumAmountOut: bigint,
-  lucid: any
-): Promise<any> {
-  // TODO: Implement actual Splash swap building
-  // This would involve:
-  // 1. Spending from the Splash pool UTxO
-  // 2. Providing the swap input
-  // 3. Receiving the swap output
-  // 4. Updating the pool reserves
-  
-  console.warn('Splash swap building not fully implemented - needs script addresses and datum schema');
-  
-  return tx;
+  const txCbor = completedTx.toString();
+  return normalizeTransactionCbor(txCbor);
 }
 
 /**
@@ -226,6 +262,26 @@ function applySlippage(
       return BigInt(slippageAdjustedAmount.toFixed(0, BigNumber.ROUND_DOWN));
     }
   }
+}
+
+function toLucidUtxos(utxos: UTxO[]): any[] {
+  return utxos.map(utxo => ({
+    txHash: utxo.txHash,
+    outputIndex: utxo.outputIndex,
+    address: utxo.address,
+    assets: utxo.assets,
+    datum: utxo.datum,
+    datumHash: utxo.datumHash,
+    scriptRef: utxo.scriptRef,
+  }));
+}
+
+function buildAssetMap(policyId: string, tokenName: string, amount: bigint): Record<string, bigint> {
+  if (amount <= 0n) {
+    throw new Error('amount must be positive');
+  }
+  const unit = policyId === '' ? 'lovelace' : `${policyId}${tokenName}`;
+  return { [unit]: amount };
 }
 
 /**
